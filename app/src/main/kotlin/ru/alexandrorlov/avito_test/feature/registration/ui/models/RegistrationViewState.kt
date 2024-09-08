@@ -1,6 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.registration.ui.models
 
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.PasswordValidatorImpl.Companion.MIN_CHARS_IN_PASSWORD
+import ru.alexandrorlov.avito_test.common.domain.validator.impl.PasswordValidatorImpl.Companion.MIN_CHARS_IN_PASSWORD
 
 data class RegistrationViewState(
     val name: Name,

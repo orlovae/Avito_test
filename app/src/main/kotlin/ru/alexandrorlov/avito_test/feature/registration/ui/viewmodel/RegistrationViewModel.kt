@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import ru.alexandrorlov.avito_test.common.data.Either
+import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
+import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.model.User
 import ru.alexandrorlov.avito_test.feature.registration.data.models.RegistrationResponse
 import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.NameValidator
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPassword
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Email
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name

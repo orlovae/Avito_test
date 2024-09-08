@@ -1,7 +1,7 @@
-package ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl
+package ru.alexandrorlov.avito_test.common.domain.validator.impl
 
 import android.util.Patterns.EMAIL_ADDRESS
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
+import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import java.util.regex.Pattern
 import javax.inject.Inject
 

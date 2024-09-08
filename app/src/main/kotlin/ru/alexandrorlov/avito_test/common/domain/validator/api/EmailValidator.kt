@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.domain.validators.api
+package ru.alexandrorlov.avito_test.common.domain.validator.api
 
 import java.util.regex.Pattern
 

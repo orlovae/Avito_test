@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.ui.screen.component
+package ru.alexandrorlov.avito_test.common.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,11 +21,11 @@ import ru.alexandrorlov.avito_test.ui.theme.ShapesAvitoTest
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 
 @Composable
-internal fun AvitoTestButtonWithErrorState(
+internal fun AvitoTestButton(
     modifier: Modifier = Modifier,
     title: String,
-    onClick: () -> Unit,
     isErrorState: Boolean = true,
+    onClick: () -> Unit,
 ) {
 
     Button(
@@ -64,19 +64,19 @@ internal fun AvitoTestButtonWithErrorState(
 @Preview
 @Composable
 internal fun AvitoTestButtonEnableErrorStatePreview() {
-    AvitoTestButtonWithErrorState(
-        onClick = {  },
+    AvitoTestButton(
         title = stringResource(R.string.button_title),
         isErrorState = true,
+        onClick = {  },
     )
 }
 
 @Preview
 @Composable
 internal fun AvitoTestButtonDisableErrorStatePreview() {
-    AvitoTestButtonWithErrorState(
-        onClick = {  },
+    AvitoTestButton(
         title = stringResource(R.string.button_title),
         isErrorState = false,
+        onClick = {  },
     )
 }

@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.email
+package ru.alexandrorlov.avito_test.common.ui.textfield.email
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

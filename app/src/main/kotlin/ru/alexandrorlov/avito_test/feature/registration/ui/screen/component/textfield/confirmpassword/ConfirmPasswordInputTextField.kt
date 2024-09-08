@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.password
+package ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.confirmpassword
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
@@ -11,7 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,11 +21,11 @@ import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.ui.SpacerSmallPadding
 import ru.alexandrorlov.avito_test.common.ui.textfield.BaseInputTextField
 import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
+import ru.alexandrorlov.avito_test.common.ui.textfield.password.DecorationBox
 
 @Composable
-internal fun PasswordInputTextField(
+internal fun ConfirmPasswordInputTextField(
     password: String,
-    stayDigit: Int,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
     imeAction: ImeAction,
@@ -77,21 +77,15 @@ internal fun PasswordInputTextField(
             SpacerSmallPadding()
 
             FooterTextField(
-                title = pluralStringResource(
-                    id = R.plurals.password_error_footer_text,
-                    count = stayDigit,
-                    stayDigit,
-                    stayDigit,
-                ),
+                title = stringResource(R.string.confirm_password_error_state_text),
             )
         }
     }
 }
 
 @Composable
-private fun PasswordInputTextField(
+private fun ConfirmPasswordInputTextField(
     password: String,
-    stayDigit: Int,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
 ) {
@@ -136,12 +130,7 @@ private fun PasswordInputTextField(
             SpacerSmallPadding()
 
             FooterTextField(
-                title = pluralStringResource(
-                    id = R.plurals.password_error_footer_text,
-                    count = stayDigit,
-                    stayDigit,
-                    stayDigit,
-                ),
+                title = stringResource(R.string.confirm_password_error_state_text),
             )
         }
     }
@@ -149,10 +138,9 @@ private fun PasswordInputTextField(
 
 @Preview
 @Composable
-private fun PasswordInputTextFieldStatePreview() {
-    PasswordInputTextField(
+private fun ConfirmPasswordInputTextFieldStatePreview() {
+    ConfirmPasswordInputTextField(
         password = "12345678",
-        stayDigit = 0,
         showErrorState = false,
         onPasswordChange = { },
     )
@@ -160,21 +148,9 @@ private fun PasswordInputTextFieldStatePreview() {
 
 @Preview
 @Composable
-private fun PasswordInputTextFieldEmptyStatePreview() {
-    PasswordInputTextField(
+private fun ConfirmPasswordInputTextFieldEmptyStatePreview() {
+    ConfirmPasswordInputTextField(
         password = "",
-        stayDigit = 8,
-        showErrorState = true,
-        onPasswordChange = { },
-    )
-}
-
-@Preview
-@Composable
-private fun PasswordInputTextFieldErrorStatePreview() {
-    PasswordInputTextField(
-        password = "1234",
-        stayDigit = 4,
         showErrorState = true,
         onPasswordChange = { },
     )
