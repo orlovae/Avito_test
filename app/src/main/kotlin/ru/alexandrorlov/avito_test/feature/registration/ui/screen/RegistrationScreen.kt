@@ -24,6 +24,7 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.AvitoTestButton
 import ru.alexandrorlov.avito_test.common.ui.SnackbarAvitoTest
 import ru.alexandrorlov.avito_test.common.ui.SpacerMediumPadding
+import ru.alexandrorlov.avito_test.common.ui.TopBarAvitoTest
 import ru.alexandrorlov.avito_test.common.ui.textfield.email.EmailTextField
 import ru.alexandrorlov.avito_test.common.ui.textfield.password.PasswordInputTextField
 import ru.alexandrorlov.avito_test.di.daggerViewModel
@@ -80,6 +81,9 @@ private fun RegistrationScreen(
     }
 
     Scaffold(
+        topBar = {
+            TopBarAvitoTest(title = stringResource(id = R.string.top_bar_registration_title))
+        },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) { data ->
                 SnackbarAvitoTest(
@@ -193,6 +197,9 @@ private fun RegistrationScreen(
     }
 
     Scaffold(
+        topBar = {
+            TopBarAvitoTest(title = stringResource(id = R.string.top_bar_registration_title))
+        },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) { data ->
                 SnackbarAvitoTest(

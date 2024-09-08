@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Avito_test</string>
 
+    <string name="top_bar_registration_title">Регистрация</string>
+
     <string name="bottom_bar_search">Поиск</string>
     <string name="bottom_bar_favorite">Избранное</string>
     <string name="bottom_bar_announcement">Объявления</string>

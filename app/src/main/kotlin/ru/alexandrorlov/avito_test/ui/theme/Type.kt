@@ -46,17 +46,10 @@ data class TypographyAvitoTest(
         fontWeight = FontWeight.W500,
         fontSize = 17.sp,
     ),
-
-    val titleCell: TextStyle = TextStyle(
+    val titleTopBar: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
-        fontSize = 20.sp,
-        lineHeight = 28.sp,
-        letterSpacing = (-1).sp,
-    ),
-    val noteCell: TextStyle = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
+        fontWeight = FontWeight.W600,
+        fontSize = 24.sp,
     ),
 )
 
