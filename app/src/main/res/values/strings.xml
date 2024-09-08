@@ -8,4 +8,19 @@
     <string name="bottom_bar_profile">Профиль</string>
 
     <string name="button_title">Войти</string>
+
+    <string name="name_error_footer_text">Данное поле не должно быть пустым</string>
+    <string name="email_error_footer_text">Введённое значение не является e-mail</string>
+
+    <string name="confirm_password_error_state_text">Пароли не совпадают</string>
+
+    <string name="show_password_text_field">Показать пароль</string>
+    <string name="hide_password_text_field">Скрыть пароль</string>
+
+    <plurals name="password_error_footer_text">
+        <item quantity="few">Осталось ввести %d символа</item>
+        <item quantity="many">Осталось ввести %d символов</item>
+        <item quantity="one">Осталось ввести %d символ</item>
+        <item quantity="other">Осталось ввести %d символов</item>
+    </plurals>
 </resources>

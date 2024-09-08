@@ -5,6 +5,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,14 +27,22 @@ data class TypographyAvitoTest(
     ),
     val textButton: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
-        fontSize = 14.sp,
+        fontSize = 18.sp,
     ),
-    val textIcon: TextStyle = TextStyle(
+    val textField: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W500,
-        fontSize = 20.sp,
-        lineHeight = 28.sp,
+        fontSize = 16.sp,
+        color = Color.White,
     ),
+    val footerTextInTextFiled: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W400,
+        fontSize = 13.sp,
+        color = RedText,
+    ),
+
+
     val titleCell: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontSize = 20.sp,

@@ -8,3 +8,12 @@ fun getStringValueFromString(value: String, @StringRes stringId: Int): StringVal
     } else {
         StringValue.DynamicString(value)
     }
+
+fun String.isAllCharsDigits() =
+    if (this.isNotEmpty()) {
+        this.all { char ->
+            char.isDigit()
+        }
+    } else {
+        false
+    }
