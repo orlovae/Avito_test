@@ -24,6 +24,7 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.SnackbarAvitoTest
 import ru.alexandrorlov.avito_test.common.ui.SpacerMediumPadding
 import ru.alexandrorlov.avito_test.di.daggerViewModel
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationEvent
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.AvitoTestButtonWithErrorState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.email.EmailTextField
@@ -34,11 +35,20 @@ import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.Registratio
 
 @Composable
 internal fun RegistrationScreen(
+    navigateToAuthScreen: () -> Unit,
     viewModel: RegistrationViewModel = daggerViewModel(),
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
 
     val state: RegistrationViewState = viewModel.state.collectAsState().value
+
+    val event: RegistrationEvent = viewModel.event.collectAsState().value
+    when (event) {
+        RegistrationEvent.Init -> {}
+        RegistrationEvent.NavigateToAuthScreen -> {
+            navigateToAuthScreen()
+        }
+    }
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -140,5 +150,7 @@ internal fun RegistrationScreen(
 @Preview
 @Composable
 internal fun PreviewRegistrationScreen() {
-    RegistrationScreen()
+    RegistrationScreen(
+        navigateToAuthScreen = { },
+    )
 }

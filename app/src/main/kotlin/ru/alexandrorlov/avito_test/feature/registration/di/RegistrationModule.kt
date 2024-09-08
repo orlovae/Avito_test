@@ -9,6 +9,7 @@ import ru.alexandrorlov.avito_test.feature.registration.di.bindmodule.Registrati
 import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
+import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.NameValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
 import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.RegistrationViewModel
 
@@ -22,12 +23,14 @@ class RegistrationModule {
     @ViewModelKey(RegistrationViewModel::class)
     @Provides
     fun provideRegistrationViewModel(
+        nameValidator: NameValidator,
         passwordValidator: PasswordValidator,
         emailValidator: EmailValidator,
         allDataValidator: AllDataValidator,
         registrationRepository: RegistrationRepository,
     ): ViewModel =
         RegistrationViewModel(
+            nameValidator = nameValidator,
             passwordValidator = passwordValidator,
             emailValidator = emailValidator,
             allDataValidator = allDataValidator,

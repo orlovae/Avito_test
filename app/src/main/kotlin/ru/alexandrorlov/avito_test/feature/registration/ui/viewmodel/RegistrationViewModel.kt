@@ -17,16 +17,19 @@ import ru.alexandrorlov.avito_test.feature.registration.data.models.Registration
 import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
+import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.NameValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPassword
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Email
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationEvent
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
+    private val nameValidator: NameValidator,
     private val passwordValidator: PasswordValidator,
     private val emailValidator: EmailValidator,
     private val allDataValidator: AllDataValidator,
@@ -43,6 +46,11 @@ class RegistrationViewModel @Inject constructor(
             )
         )
     val state: StateFlow<RegistrationViewState> = _state.asStateFlow()
+
+    private val _event: MutableStateFlow<RegistrationEvent> = MutableStateFlow(
+        RegistrationEvent.Init
+    )
+    val event: StateFlow<RegistrationEvent> = _event.asStateFlow()
 
     private val _sideEffect: MutableSharedFlow<SideEffect> =
         MutableSharedFlow(extraBufferCapacity = 1)
@@ -67,11 +75,13 @@ class RegistrationViewModel @Inject constructor(
     private fun observeInputName() =
         inputName
             .onEach { name ->
+                val isErrorState = nameValidator.getShowErrorState(inputValue = name)
+
                 _state.update {
                     _state.value.copy(
                         name = Name(
                             value = name,
-                            isErrorState = name.isBlank(),
+                            isErrorState = isErrorState,
                         )
                     )
                 }
@@ -150,7 +160,9 @@ class RegistrationViewModel @Inject constructor(
                     registrationRepository.registrationUser(user = user)) {
 
                     is Either.Success -> {
-
+                        _event.emit(
+                            RegistrationEvent.NavigateToAuthScreen
+                        )
                     }
 
                     is Either.Fail -> {

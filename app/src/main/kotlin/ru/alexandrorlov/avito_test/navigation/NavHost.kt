@@ -31,7 +31,11 @@ fun NavGraph(
                 viewModelFactory = App.registrationComponent.getViewModelFactory()
             ) {
                 RegistrationScreen(
-
+                    navigateToAuthScreen = {
+                        navController.navigate(
+                            Screen.Auth.route()
+                        )
+                    }
                 )
             }
         }
