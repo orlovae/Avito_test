@@ -2,8 +2,9 @@ package ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl
 
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.SmsCodeValidator
 import ru.alexandrorlov.avito_test.utils.isAllCharsDigits
+import javax.inject.Inject
 
-class SmsCodeValidatorImpl : SmsCodeValidator {
+class SmsCodeValidatorImpl @Inject constructor(): SmsCodeValidator {
     override val pattern: String
         get() = REGEX_SMS_CODE
 

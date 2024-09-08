@@ -2,8 +2,9 @@ package ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl
 
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Password
+import javax.inject.Inject
 
-class PasswordValidatorImpl : PasswordValidator {
+class PasswordValidatorImpl @Inject constructor() : PasswordValidator {
 
     override fun inputValueTransformString(inputValue: String): String = inputValue
 

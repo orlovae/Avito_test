@@ -1,6 +1,5 @@
 package ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,23 +14,18 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.AllDataValidatorImpl
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.EmailValidatorImpl
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.PasswordValidatorImpl
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.ConfirmPassword
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Email
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Name
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Password
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.RegistrationViewState
+import javax.inject.Inject
 
-class RegistrationViewModel constructor(
-//    private val mainUseCase: MainUseCase,
+class RegistrationViewModel @Inject constructor(
+    private val passwordValidator: PasswordValidator,
+    private val emailValidator: EmailValidator,
+    private val allDataValidator: AllDataValidator,
 ) : ViewModel() {
-    /* Все 3 переменные в конструктор */
-    private val passwordValidator: PasswordValidator = PasswordValidatorImpl()
-    private val emailValidator: EmailValidator = EmailValidatorImpl()
-    private val allDataValidator: AllDataValidator = AllDataValidatorImpl()
-
     private val _state: MutableStateFlow<RegistrationViewState> =
         MutableStateFlow(
             RegistrationViewState(

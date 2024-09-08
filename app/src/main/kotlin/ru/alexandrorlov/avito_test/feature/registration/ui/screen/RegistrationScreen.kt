@@ -14,9 +14,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.ui.SpacerMediumPadding
+import ru.alexandrorlov.avito_test.di.daggerViewModel
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.RegistrationViewState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.AvitoTestButtonWithErrorState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.email.EmailTextField
@@ -26,10 +26,10 @@ import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.text
 import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.RegistrationViewModel
 
 @Composable
-internal fun RegistrationScreen() {
-
+internal fun RegistrationScreen(
+    viewModel: RegistrationViewModel = daggerViewModel(),
+) {
     val focusManager: FocusManager = LocalFocusManager.current
-    val viewModel: RegistrationViewModel = viewModel()
 
     val state: RegistrationViewState = viewModel.state.collectAsState().value
 

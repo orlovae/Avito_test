@@ -6,6 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import ru.alexandrorlov.avito_test.App
+import ru.alexandrorlov.avito_test.di.Inject
 import ru.alexandrorlov.avito_test.feature.auth.ui.screen.AuthScreen
 import ru.alexandrorlov.avito_test.feature.product_detail.ui.screen.ProductDetailScreen
 import ru.alexandrorlov.avito_test.feature.product_list.ui.screen.ProductListScreen
@@ -25,15 +27,19 @@ fun NavGraph(
             route = Screen.Registration.route(),
         ) { navBackStackEntry ->
             navBackStackEntry.destination
-            RegistrationScreen(
+            Inject(
+                viewModelFactory = App.registrationComponent.getViewModelFactory()
+            ) {
+                RegistrationScreen(
 
-            )
+                )
+            }
         }
 
         composable(
             route = Screen.Auth.route(),
         ) {
-            navBackStackEntry ->
+                navBackStackEntry ->
             navBackStackEntry.destination
             AuthScreen(
 
