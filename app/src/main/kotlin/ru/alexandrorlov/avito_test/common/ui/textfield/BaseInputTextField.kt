@@ -1,29 +1,35 @@
 package ru.alexandrorlov.avito_test.common.ui.textfield
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import ru.alexandrorlov.avito_test.R
+import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextField
+import ru.alexandrorlov.avito_test.ui.theme.RedBorder
+import ru.alexandrorlov.avito_test.ui.theme.ShapesAvitoTest
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 
 @Composable
-fun BaseInputTextField(
+internal fun BaseInputTextField(
     modifier: Modifier = Modifier,
     inputText: String,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    regexPattern: Regex? = null,
+    hasFocus: Boolean,
+    errorState: Boolean,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -31,24 +37,24 @@ fun BaseInputTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit,
 ) {
-    var textMemory by remember { mutableStateOf(inputText) }
-
     BasicTextField(
-        value = textMemory,
-        onValueChange = { text ->
-            regexPattern?.let { regexPattern ->
-                if (regexPattern.matches(text)) {
-                    onValueChange(text)
-                    textMemory = text
-                }
-            } ?: run {
-                onValueChange(text)
-                textMemory = text
-            }
-        },
-        modifier = Modifier
+        value = inputText,
+        onValueChange = { onValueChange(it) },
+        modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.medium_padding),
+            )
+            .background(
+                color = BackgroundTextField,
+                shape = MaterialTheme.ShapesAvitoTest.shapeTextField,
+            )
+            .border(
+                width = dimensionResource(R.dimen.border_thickness_text_field),
+                color = if (hasFocus && errorState) RedBorder else Color.Unspecified,
+                shape = MaterialTheme.ShapesAvitoTest.shapeTextField,
+            ),
         enabled = enabled,
         readOnly = readOnly,
         textStyle = inputTextStyle,
@@ -62,12 +68,34 @@ fun BaseInputTextField(
     )
 }
 
-@Preview
+@Preview()
 @Composable
-internal fun BaseInputTextFieldPreview() {
+private fun BaseInputTextFieldPreview() {
     BaseInputTextField(
-        inputText = "BaseInputTextField",
+        inputText = "Base Input Text Field",
+        hasFocus = false,
+        errorState = false,
         onValueChange = {},
-        decorationBox = {},
+        decorationBox = @Composable { innerTextField ->
+            DecorationBox(
+                innerTextField
+            )
+        },
+    )
+}
+
+@Preview()
+@Composable
+private fun BaseInputTextFieldErrorStatePreview() {
+    BaseInputTextField(
+        inputText = "Base Input Text Field",
+        hasFocus = true,
+        errorState = true,
+        onValueChange = {},
+        decorationBox = @Composable { innerTextField ->
+            DecorationBox(
+                innerTextField
+            )
+        },
     )
 }

@@ -63,9 +63,20 @@ internal fun AvitoTestButtonWithErrorState(
 
 @Preview
 @Composable
-internal fun AvitoTestButtonWithErrorStatePreview() {
-    AvitoTestButton(
+internal fun AvitoTestButtonEnableErrorStatePreview() {
+    AvitoTestButtonWithErrorState(
         onClick = {  },
         title = stringResource(R.string.button_title),
+        isErrorState = true,
+    )
+}
+
+@Preview
+@Composable
+internal fun AvitoTestButtonDisableErrorStatePreview() {
+    AvitoTestButtonWithErrorState(
+        onClick = {  },
+        title = stringResource(R.string.button_title),
+        isErrorState = false,
     )
 }

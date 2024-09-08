@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.ui.theme.ShapesAvitoTest
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
@@ -44,4 +45,12 @@ fun SnackbarAvitoTest(
             style = MaterialTheme.TypographyAvitoTest.textSnackbar,
         )
     }
+}
+
+@Preview
+@Composable
+private fun SnackbarAvitoTestPreview() {
+    SnackbarAvitoTest(
+        snackBarText = "Error email exist",
+    )
 }

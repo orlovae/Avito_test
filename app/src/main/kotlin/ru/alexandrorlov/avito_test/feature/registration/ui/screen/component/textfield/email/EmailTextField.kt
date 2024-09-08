@@ -15,9 +15,10 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.ui.SpacerSmallPadding
-import ru.alexandrorlov.avito_test.common.ui.textfield.BaseInputTextFieldWithErrorState
+import ru.alexandrorlov.avito_test.common.ui.textfield.BaseInputTextField
 import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
 
 @Composable
@@ -32,7 +33,7 @@ internal fun EmailTextField(
     }
 
     Column {
-        BaseInputTextFieldWithErrorState(
+        BaseInputTextField(
             modifier = Modifier
                 .onFocusEvent {
                     hasFocusName = it.isFocused
@@ -63,4 +64,59 @@ internal fun EmailTextField(
             )
         }
     }
+}
+
+@Composable
+private fun EmailTextField(
+    inputText: String,
+    showErrorState: Boolean,
+    onValueChange: (String) -> Unit,
+) {
+    val hasFocusName by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    Column {
+        BaseInputTextField(
+            inputText = inputText,
+            hasFocus = hasFocusName,
+            errorState = showErrorState,
+            onValueChange = onValueChange,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email,
+            ),
+            decorationBox = @Composable { innerTextField ->
+                DecorationBox(innerTextField)
+            },
+        )
+
+        if (showErrorState) {
+            SpacerSmallPadding()
+
+            FooterTextField(
+                title = stringResource(R.string.email_error_footer_text),
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun EmailTextFieldStatePreview() {
+    EmailTextField(
+        inputText = "email@email.ru",
+        showErrorState = false,
+        onValueChange = { },
+    )
+}
+
+@Preview
+@Composable
+private fun EmailTextFieldEmptyStatePreview() {
+    EmailTextField(
+        inputText = "",
+        showErrorState = true,
+        onValueChange = { },
+    )
 }

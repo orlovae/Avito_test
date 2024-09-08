@@ -24,19 +24,33 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.SnackbarAvitoTest
 import ru.alexandrorlov.avito_test.common.ui.SpacerMediumPadding
 import ru.alexandrorlov.avito_test.di.daggerViewModel
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPassword
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Email
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationEvent
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.AvitoTestButtonWithErrorState
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.email.EmailTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.name.NameUserTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.password.ConfirmPasswordInputTextField
-import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.password.PasswordInputTextFieldWithErrorState
+import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.password.PasswordInputTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.RegistrationViewModel
 
 @Composable
-internal fun RegistrationScreen(
+fun RegistrationScreen(
     navigateToAuthScreen: () -> Unit,
-    viewModel: RegistrationViewModel = daggerViewModel(),
+) {
+    RegistrationScreen(
+        viewModel = daggerViewModel(),
+        navigateToAuthScreen = navigateToAuthScreen,
+    )
+}
+
+@Composable
+private fun RegistrationScreen(
+    viewModel: RegistrationViewModel,
+    navigateToAuthScreen: () -> Unit,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
 
@@ -80,6 +94,8 @@ internal fun RegistrationScreen(
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
+                SpacerMediumPadding()
+
                 NameUserTextField(
                     inputText = state.name.value,
                     showErrorState = state.name.isErrorState,
@@ -102,7 +118,7 @@ internal fun RegistrationScreen(
 
                 SpacerMediumPadding()
 
-                PasswordInputTextFieldWithErrorState(
+                PasswordInputTextField(
                     password = state.password.value,
                     stayDigit = state.password.stayDigit,
                     showErrorState = state.password.isErrorState,
@@ -147,10 +163,135 @@ internal fun RegistrationScreen(
     }
 }
 
+@Composable
+private fun RegistrationScreen(
+    state: RegistrationViewState,
+    event: RegistrationEvent,
+    sideEffect: SideEffect,
+    navigateToAuthScreen: () -> Unit,
+) {
+    val focusManager: FocusManager = LocalFocusManager.current
+
+    when (event) {
+        RegistrationEvent.Init -> {}
+        RegistrationEvent.NavigateToAuthScreen -> {
+            navigateToAuthScreen()
+        }
+    }
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = Unit) {
+        when (sideEffect) {
+
+            is SideEffect.SnackBar -> {
+                snackbarHostState.showSnackbar(
+                    message = sideEffect.message,
+                )
+            }
+        }
+    }
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                SnackbarAvitoTest(
+                    snackBarText = data.visuals.message,
+                )
+            }
+        },
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column {
+                SpacerMediumPadding()
+
+                NameUserTextField(
+                    inputText = state.name.value,
+                    showErrorState = state.name.isErrorState,
+                    focusManager = focusManager,
+                    onValueChange = { },
+                )
+
+                SpacerMediumPadding()
+
+                EmailTextField(
+                    inputText = state.email.value,
+                    showErrorState = state.email.isErrorState,
+                    focusManager = focusManager,
+                    onValueChange = { },
+                )
+
+                SpacerMediumPadding()
+
+                PasswordInputTextField(
+                    password = state.password.value,
+                    stayDigit = state.password.stayDigit,
+                    showErrorState = state.password.isErrorState,
+                    onPasswordChange = { },
+                    imeAction = ImeAction.Next,
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Next)
+                        },
+                    ),
+                )
+
+                SpacerMediumPadding()
+
+                ConfirmPasswordInputTextField(
+                    password = state.confirmPassword.value,
+                    showErrorState = state.confirmPassword.isErrorState,
+                    onPasswordChange = { },
+                    imeAction = ImeAction.Next,
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Next)
+                        },
+                    ),
+                )
+            }
+
+            AvitoTestButtonWithErrorState(
+                modifier = Modifier
+                    .focusable(),
+                title = stringResource(id = R.string.button_title),
+                onClick = { },
+                isErrorState = state.isAllDataNotValid,
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
-internal fun PreviewRegistrationScreen() {
+private fun PreviewRegistrationScreen() {
     RegistrationScreen(
+        state = RegistrationViewState(
+            name = Name(
+                value = "Aleksandr Orlov",
+                isErrorState = false,
+            ),
+            email = Email(
+                value = "email@email.ru",
+                isErrorState = false,
+            ),
+            password = Password(
+                value = "12345678",
+                stayDigit = 0,
+                isErrorState = false,
+            ),
+            confirmPassword = ConfirmPassword(
+                value = "12345678",
+                isErrorState = false,
+            ),
+            isAllDataNotValid = false
+        ),
+        event = RegistrationEvent.Init,
+        sideEffect = SideEffect.SnackBar(""),
         navigateToAuthScreen = { },
     )
 }

@@ -16,13 +16,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.ui.SpacerSmallPadding
-import ru.alexandrorlov.avito_test.common.ui.textfield.BaseInputTextFieldWithErrorState
+import ru.alexandrorlov.avito_test.common.ui.textfield.BaseInputTextField
 import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
 
 @Composable
-internal fun PasswordInputTextFieldWithErrorState(
+internal fun PasswordInputTextField(
     password: String,
     stayDigit: Int,
     showErrorState: Boolean,
@@ -47,7 +48,7 @@ internal fun PasswordInputTextFieldWithErrorState(
     }
 
     Column {
-        BaseInputTextFieldWithErrorState(
+        BaseInputTextField(
             modifier = Modifier
                 .onFocusEvent {
                     hasFocus = it.isFocused
@@ -85,4 +86,96 @@ internal fun PasswordInputTextFieldWithErrorState(
             )
         }
     }
+}
+
+@Composable
+private fun PasswordInputTextField(
+    password: String,
+    stayDigit: Int,
+    showErrorState: Boolean,
+    onPasswordChange: (String) -> Unit,
+) {
+    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+
+    val visualTransformation by remember(passwordHidden) {
+        mutableStateOf(
+            if (passwordHidden) {
+                PasswordVisualTransformation()
+            } else {
+                VisualTransformation.None
+            },
+        )
+    }
+
+    var hasFocus by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    Column {
+        BaseInputTextField(
+            modifier = Modifier
+                .onFocusEvent {
+                    hasFocus = it.isFocused
+                },
+            inputText = password,
+            hasFocus = hasFocus,
+            errorState = showErrorState,
+            onValueChange = { onPasswordChange(it) },
+            visualTransformation = visualTransformation,
+            decorationBox = @Composable { innerTextField ->
+                DecorationBox(
+                    innerTextField = innerTextField,
+                    onPasswordHiddenChange = {
+                        passwordHidden = it
+                    },
+                )
+            },
+        )
+
+        if (showErrorState) {
+            SpacerSmallPadding()
+
+            FooterTextField(
+                title = pluralStringResource(
+                    id = R.plurals.password_error_footer_text,
+                    count = stayDigit,
+                    stayDigit,
+                    stayDigit,
+                ),
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PasswordInputTextFieldStatePreview() {
+    PasswordInputTextField(
+        password = "12345678",
+        stayDigit = 0,
+        showErrorState = false,
+        onPasswordChange = { },
+    )
+}
+
+@Preview
+@Composable
+private fun PasswordInputTextFieldEmptyStatePreview() {
+    PasswordInputTextField(
+        password = "",
+        stayDigit = 8,
+        showErrorState = true,
+        onPasswordChange = { },
+    )
+}
+
+@Preview
+@Composable
+private fun PasswordInputTextFieldErrorStatePreview() {
+    PasswordInputTextField(
+        password = "1234",
+        stayDigit = 4,
+        showErrorState = true,
+        onPasswordChange = { },
+    )
 }
