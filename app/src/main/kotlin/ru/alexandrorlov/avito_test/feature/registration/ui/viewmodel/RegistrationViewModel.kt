@@ -10,21 +10,27 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import ru.alexandrorlov.avito_test.common.data.Either
 import ru.alexandrorlov.avito_test.common.model.SideEffect
+import ru.alexandrorlov.avito_test.common.model.User
+import ru.alexandrorlov.avito_test.feature.registration.data.models.RegistrationResponse
+import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.EmailValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.ConfirmPassword
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Email
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Name
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Password
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.RegistrationViewState
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPassword
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Email
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
+import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
     private val passwordValidator: PasswordValidator,
     private val emailValidator: EmailValidator,
     private val allDataValidator: AllDataValidator,
+    private val registrationRepository: RegistrationRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<RegistrationViewState> =
         MutableStateFlow(
@@ -47,7 +53,7 @@ class RegistrationViewModel @Inject constructor(
     val inputPassword: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
     val inputConfirmPassword: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
 
-    val onClickButton: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val onClickButton: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
 
     init {
         observeInputName()
@@ -55,6 +61,7 @@ class RegistrationViewModel @Inject constructor(
         observeInputPassword()
         observeInputConfirmPassword()
         observeAllDataValid()
+        observeOnClickButton()
     }
 
     private fun observeInputName() =
@@ -129,4 +136,34 @@ class RegistrationViewModel @Inject constructor(
                 }
             }
             .launchIn(viewModelScope)
+
+    private fun observeOnClickButton() {
+        onClickButton
+            .onEach {
+                val user: User = User(
+                    name = _state.value.name.value,
+                    email = _state.value.email.value,
+                    password = _state.value.password.value,
+                    cpassword = _state.value.confirmPassword.value,
+                )
+                when (val either: Either<String, RegistrationResponse> =
+                    registrationRepository.registrationUser(user = user)) {
+
+                    is Either.Success -> {
+
+                    }
+
+                    is Either.Fail -> {
+                        _sideEffect.emit(
+                            SideEffect.SnackBar(
+                                message = either.value.getErrorMessage()
+                            )
+                        )
+                    }
+                }
+
+            }
+            .launchIn(viewModelScope)
+    }
+
 }

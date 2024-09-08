@@ -17,3 +17,18 @@ fun String.isAllCharsDigits() =
     } else {
         false
     }
+
+fun String.getErrorMessage(): String {
+    val outFirst: StringBuilder = StringBuilder("Error ")
+
+    val outLast: String = this
+        .split(",")
+        .last()
+        .split(":")
+        .last()
+        .filter {
+            it.isLetter() || it.isWhitespace()
+        }
+
+    return outFirst.append(outLast).toString()
+}

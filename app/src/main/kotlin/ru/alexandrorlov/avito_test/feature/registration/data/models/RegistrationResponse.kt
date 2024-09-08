@@ -8,6 +8,8 @@ import kotlinx.serialization.Serializable
 data class RegistrationResponse(
     @SerialName("data")
     val data: Data? = null,
+    @SerialName("message")
+    val message: String? = null,
     @SerialName("status")
     val status: String? = null
 )

@@ -17,7 +17,9 @@ data class ShapesAvitoTest(
         size = 8.dp,
     ),
 
-//    val shapeIcon: Shape = CircleShape,
+    val shapeSnackbar: Shape = RoundedCornerShape(
+        size = 30.dp,
+    ),
 )
 
 val LocalShapes = staticCompositionLocalOf { ShapesAvitoTest() }

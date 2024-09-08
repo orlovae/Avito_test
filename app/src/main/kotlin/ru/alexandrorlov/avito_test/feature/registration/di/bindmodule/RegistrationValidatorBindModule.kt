@@ -10,7 +10,7 @@ import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.E
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl.PasswordValidatorImpl
 
 @Module
-interface RegistrationBindModule {
+interface RegistrationValidatorBindModule {
 
     @Binds
     fun bindPasswordValidatorImplToPasswordValidator(

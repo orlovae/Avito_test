@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.alexandrorlov.avito_test.data.network.di.NetworkModule
-import ru.alexandrorlov.avito_test.feature.registration.data.RegistrationApi
+import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.RegistrationDependencies
 
 @Component(

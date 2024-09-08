@@ -6,8 +6,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Data(
-    @SerialName("address")
-    val address: Address? = null,
     @SerialName("email")
     val email: String? = null,
     @SerialName("id")
@@ -16,6 +14,4 @@ data class Data(
     val name: String? = null,
     @SerialName("password")
     val password: String? = null,
-    @SerialName("photo")
-    val photo: String? = null
 )

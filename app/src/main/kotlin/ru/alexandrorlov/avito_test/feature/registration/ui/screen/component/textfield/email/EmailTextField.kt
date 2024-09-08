@@ -43,7 +43,7 @@ internal fun EmailTextField(
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Email,
             ),
             keyboardActions = KeyboardActions(
                 onNext = {

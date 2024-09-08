@@ -14,7 +14,7 @@ import retrofit2.create
 import ru.alexandrorlov.avito_test.data.network.interceptor.AuthHeaderInterceptor
 import ru.alexandrorlov.avito_test.data.network.utils.NetworkConstants.BASE_URL
 import ru.alexandrorlov.avito_test.di.AppScope
-import ru.alexandrorlov.avito_test.feature.registration.data.RegistrationApi
+import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 
 @Module
 class NetworkModule {
@@ -50,7 +50,7 @@ class NetworkModule {
             coerceInputValues = true
         }
 
-        val mediaType: MediaType = "application/json; charset=UTF8".toMediaType()
+        val mediaType: MediaType = "application/json".toMediaType()
 
         return json.asConverterFactory(mediaType)
     }

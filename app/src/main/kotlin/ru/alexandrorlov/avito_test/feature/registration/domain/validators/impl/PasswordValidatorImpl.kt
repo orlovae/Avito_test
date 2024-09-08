@@ -1,7 +1,7 @@
 package ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl
 
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.Password
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
 import javax.inject.Inject
 
 class PasswordValidatorImpl @Inject constructor() : PasswordValidator {
@@ -43,6 +43,6 @@ class PasswordValidatorImpl @Inject constructor() : PasswordValidator {
 
     companion object {
         private const val MAX_CHARS_IN_PASSWORD = 24
-        const val MIN_CHARS_IN_PASSWORD = 1
+        const val MIN_CHARS_IN_PASSWORD = 8
     }
 }

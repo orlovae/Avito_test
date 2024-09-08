@@ -1,7 +1,7 @@
 package ru.alexandrorlov.avito_test.feature.registration.domain.validators.impl
 
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.viewstate.RegistrationViewState
+import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
 import javax.inject.Inject
 
 class AllDataValidatorImpl @Inject constructor(): AllDataValidator {

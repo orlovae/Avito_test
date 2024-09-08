@@ -41,7 +41,11 @@ data class TypographyAvitoTest(
         fontSize = 13.sp,
         color = RedText,
     ),
-
+    val textSnackbar: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W500,
+        fontSize = 17.sp,
+    ),
 
     val titleCell: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
