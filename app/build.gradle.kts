@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -69,6 +70,9 @@ dependencies {
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.core)
 
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)

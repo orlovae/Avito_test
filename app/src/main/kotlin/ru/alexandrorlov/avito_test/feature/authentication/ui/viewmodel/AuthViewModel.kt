@@ -1,6 +1,5 @@
 package ru.alexandrorlov.avito_test.feature.authentication.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +18,6 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.model.state.Email
 import ru.alexandrorlov.avito_test.common.model.state.Password
 import ru.alexandrorlov.avito_test.common.model.user.UserAuth
-import ru.alexandrorlov.avito_test.feature.authentication.data.models.AuthResponse
 import ru.alexandrorlov.avito_test.feature.authentication.domain.repository.AuthRepository
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthEvent
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthViewState
@@ -111,14 +109,13 @@ class AuthViewModel @Inject constructor(
                     email = _state.value.email.value,
                     password = _state.value.password.value,
                 )
-                when (val either: Either<String, AuthResponse> =
+                when (val either: Either<String, Boolean> =
                     authRepository.authUser(user = user)) {
 
                     is Either.Success -> {
-                        Log.d("OAE", "response = ${either.value}")
-//                        _event.emit(
-//                            AuthEvent.NavigateToProductListScreen
-//                        )
+                        _event.emit(
+                            AuthEvent.NavigateToProductListScreen
+                        )
                     }
 
                     is Either.Fail -> {
