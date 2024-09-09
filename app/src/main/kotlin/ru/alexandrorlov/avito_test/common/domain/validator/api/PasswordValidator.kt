@@ -1,6 +1,6 @@
 package ru.alexandrorlov.avito_test.common.domain.validator.api
 
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
+import ru.alexandrorlov.avito_test.common.model.state.Password
 
 interface PasswordValidator {
     fun inputValueTransformString(inputValue: String): String

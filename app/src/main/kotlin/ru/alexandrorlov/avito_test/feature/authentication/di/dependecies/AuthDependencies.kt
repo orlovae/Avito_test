@@ -1,15 +1,14 @@
-package ru.alexandrorlov.avito_test.feature.registration.di.dependecies
+package ru.alexandrorlov.avito_test.feature.authentication.di.dependecies
 
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 
-interface RegistrationDependencies {
+interface AuthDependencies {
 
     fun emailValidator(): EmailValidator
 
     fun passwordValidator(): PasswordValidator
 
-    fun registrationApi(): RegistrationApi
+//    fun registrationApi(): RegistrationApi
 
 }

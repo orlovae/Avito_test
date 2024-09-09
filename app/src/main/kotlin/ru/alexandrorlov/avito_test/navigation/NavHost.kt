@@ -45,9 +45,13 @@ fun NavGraph(
         ) {
                 navBackStackEntry ->
             navBackStackEntry.destination
-            AuthScreen(
-
-            )
+            Inject(
+                viewModelFactory = App.authComponent.getViewModelFactory()
+            ) {
+                AuthScreen(
+                    navigateToScreen = {  },
+                )
+            }
         }
 
         composable(

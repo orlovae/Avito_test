@@ -1,7 +1,7 @@
 package ru.alexandrorlov.avito_test.common.domain.validator.impl
 
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
+import ru.alexandrorlov.avito_test.common.model.state.Password
 import javax.inject.Inject
 
 class PasswordValidatorImpl @Inject constructor() : PasswordValidator {

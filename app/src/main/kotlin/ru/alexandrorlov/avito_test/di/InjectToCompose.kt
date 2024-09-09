@@ -6,7 +6,7 @@ import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.compositionLocalOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import ru.alexandrorlov.avito_test.feature.registration.di.MultiViewModelFactory
+import ru.alexandrorlov.avito_test.feature.authentication.di.MultiViewModelFactory
 
 @Composable
 fun Inject(

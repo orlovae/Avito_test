@@ -1,10 +1,10 @@
-package ru.alexandrorlov.avito_test.common.model
+package ru.alexandrorlov.avito_test.common.model.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class UserRegistration(
     @SerialName("name")
     val name: String,
     @SerialName("email")
@@ -13,4 +13,4 @@ data class User(
     val password: String,
     @SerialName("cpassword")
     val cpassword: String,
-)
+) : User

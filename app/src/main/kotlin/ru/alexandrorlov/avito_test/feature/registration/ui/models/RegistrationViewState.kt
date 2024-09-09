@@ -1,6 +1,8 @@
 package ru.alexandrorlov.avito_test.feature.registration.ui.models
 
-import ru.alexandrorlov.avito_test.common.domain.validator.impl.PasswordValidatorImpl.Companion.MIN_CHARS_IN_PASSWORD
+import ru.alexandrorlov.avito_test.common.model.state.Email
+import ru.alexandrorlov.avito_test.common.model.state.Password
+import ru.alexandrorlov.avito_test.common.model.state.ViewState
 
 data class RegistrationViewState(
     val name: Name,
@@ -8,8 +10,7 @@ data class RegistrationViewState(
     val password: Password,
     val confirmPassword: ConfirmPassword,
     val isAllDataNotValid: Boolean,
-
-    )
+) : ViewState
 
 data class Name(
     val value: String,
@@ -18,32 +19,6 @@ data class Name(
     companion object {
         fun empty(): Name = Name(
             value = "",
-            isErrorState = true,
-        )
-    }
-}
-
-data class Email(
-    val value: String,
-    val isErrorState: Boolean,
-) {
-    companion object {
-        fun empty(): Email = Email(
-            value = "",
-            isErrorState = true,
-        )
-    }
-}
-
-data class Password(
-    val value: String,
-    val stayDigit: Int,
-    val isErrorState: Boolean,
-) {
-    companion object {
-        fun empty(): Password = Password(
-            value = "",
-            stayDigit = MIN_CHARS_IN_PASSWORD,
             isErrorState = true,
         )
     }

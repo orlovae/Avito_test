@@ -2,6 +2,7 @@
     <string name="app_name">Avito_test</string>
 
     <string name="top_bar_registration_title">Регистрация</string>
+    <string name="top_bar_auth_title">Вход</string>
 
     <string name="bottom_bar_search">Поиск</string>
     <string name="bottom_bar_favorite">Избранное</string>
@@ -9,7 +10,8 @@
     <string name="bottom_bar_message">Сообщения</string>
     <string name="bottom_bar_profile">Профиль</string>
 
-    <string name="button_title">Войти</string>
+    <string name="button_registration_title">Войти</string>
+    <string name="button_auth_title">Вход</string>
 
     <string name="name_error_footer_text">Данное поле не должно быть пустым</string>
     <string name="email_error_footer_text">Введённое значение не является e-mail</string>

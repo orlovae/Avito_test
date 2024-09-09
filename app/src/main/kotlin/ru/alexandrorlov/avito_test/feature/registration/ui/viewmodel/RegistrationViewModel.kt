@@ -11,18 +11,18 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import ru.alexandrorlov.avito_test.common.data.Either
+import ru.alexandrorlov.avito_test.common.domain.validator.api.AllDataValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
 import ru.alexandrorlov.avito_test.common.model.SideEffect
-import ru.alexandrorlov.avito_test.common.model.User
+import ru.alexandrorlov.avito_test.common.model.state.Email
+import ru.alexandrorlov.avito_test.common.model.state.Password
+import ru.alexandrorlov.avito_test.common.model.user.UserRegistration
 import ru.alexandrorlov.avito_test.feature.registration.data.models.RegistrationResponse
 import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository
-import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.AllDataValidator
 import ru.alexandrorlov.avito_test.feature.registration.domain.validators.api.NameValidator
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPassword
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.Email
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name
-import ru.alexandrorlov.avito_test.feature.registration.ui.models.Password
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationEvent
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
@@ -150,7 +150,7 @@ class RegistrationViewModel @Inject constructor(
     private fun observeOnClickButton() {
         onClickButton
             .onEach {
-                val user: User = User(
+                val user: UserRegistration = UserRegistration(
                     name = _state.value.name.value,
                     email = _state.value.email.value,
                     password = _state.value.password.value,
