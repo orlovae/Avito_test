@@ -24,11 +24,12 @@ import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
 @Composable
 internal fun EmailTextField(
     inputText: String,
+    placeholderText: String,
     showErrorState: Boolean,
     focusManager: FocusManager,
     onValueChange: (String) -> Unit,
 ) {
-    var hasFocusName by rememberSaveable {
+    var hasFocus by rememberSaveable {
         mutableStateOf(false)
     }
 
@@ -36,10 +37,11 @@ internal fun EmailTextField(
         BaseInputTextField(
             modifier = Modifier
                 .onFocusEvent {
-                    hasFocusName = it.isFocused
+                    hasFocus = it.isFocused
                 },
             inputText = inputText,
-            hasFocus = hasFocusName,
+            placeholderText = if (hasFocus) "" else placeholderText,
+            hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(
@@ -56,7 +58,7 @@ internal fun EmailTextField(
             },
         )
 
-        if (hasFocusName && showErrorState) {
+        if (hasFocus && showErrorState) {
             SpacerSmallPadding()
 
             FooterTextField(
@@ -69,17 +71,19 @@ internal fun EmailTextField(
 @Composable
 private fun EmailTextField(
     inputText: String,
+    placeholderText: String,
     showErrorState: Boolean,
     onValueChange: (String) -> Unit,
 ) {
-    val hasFocusName by rememberSaveable {
+    val hasFocus by rememberSaveable {
         mutableStateOf(false)
     }
 
     Column {
         BaseInputTextField(
             inputText = inputText,
-            hasFocus = hasFocusName,
+            placeholderText = if (hasFocus) "" else placeholderText,
+            hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(
@@ -106,6 +110,7 @@ private fun EmailTextField(
 private fun EmailTextFieldStatePreview() {
     EmailTextField(
         inputText = "email@email.ru",
+        placeholderText = stringResource(id = R.string.email_text_placeholder),
         showErrorState = false,
         onValueChange = { },
     )
@@ -116,6 +121,7 @@ private fun EmailTextFieldStatePreview() {
 private fun EmailTextFieldEmptyStatePreview() {
     EmailTextField(
         inputText = "",
+        placeholderText = stringResource(id = R.string.email_text_placeholder),
         showErrorState = true,
         onValueChange = { },
     )

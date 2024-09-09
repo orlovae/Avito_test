@@ -87,6 +87,7 @@ internal fun AuthScreen(
 
                 EmailTextField(
                     inputText = state.email.value,
+                    placeholderText = stringResource(id = R.string.email_text_placeholder),
                     showErrorState = state.email.isErrorState,
                     focusManager = focusManager,
                     onValueChange = { inputEmail ->
@@ -98,6 +99,7 @@ internal fun AuthScreen(
 
                 PasswordInputTextField(
                     password = state.password.value,
+                    placeholderText = stringResource(id = R.string.password_text_placeholder),
                     stayDigit = state.password.stayDigit,
                     showErrorState = state.password.isErrorState,
                     onPasswordChange = { inputPassword ->

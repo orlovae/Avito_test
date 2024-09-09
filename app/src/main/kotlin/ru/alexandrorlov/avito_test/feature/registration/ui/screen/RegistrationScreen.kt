@@ -104,6 +104,7 @@ private fun RegistrationScreen(
 
                 NameUserTextField(
                     inputText = state.name.value,
+                    placeholderText = stringResource(id = R.string.name_text_placeholder),
                     showErrorState = state.name.isErrorState,
                     focusManager = focusManager,
                     onValueChange = { inputName ->
@@ -115,6 +116,7 @@ private fun RegistrationScreen(
 
                 EmailTextField(
                     inputText = state.email.value,
+                    placeholderText = stringResource(id = R.string.email_text_placeholder),
                     showErrorState = state.email.isErrorState,
                     focusManager = focusManager,
                     onValueChange = { inputEmail ->
@@ -126,6 +128,7 @@ private fun RegistrationScreen(
 
                 PasswordInputTextField(
                     password = state.password.value,
+                    placeholderText = stringResource(id = R.string.password_text_placeholder),
                     stayDigit = state.password.stayDigit,
                     showErrorState = state.password.isErrorState,
                     onPasswordChange = { inputPassword ->
@@ -143,6 +146,7 @@ private fun RegistrationScreen(
 
                 ConfirmPasswordInputTextField(
                     password = state.confirmPassword.value,
+                    placeholderText = stringResource(id = R.string.confirm_password_text_placeholder),
                     showErrorState = state.confirmPassword.isErrorState,
                     onPasswordChange = { inputConfirmPassword ->
                         viewModel.inputConfirmPassword.tryEmit(inputConfirmPassword)
@@ -221,6 +225,7 @@ private fun RegistrationScreen(
 
                 NameUserTextField(
                     inputText = state.name.value,
+                    placeholderText = stringResource(id = R.string.name_text_placeholder),
                     showErrorState = state.name.isErrorState,
                     focusManager = focusManager,
                     onValueChange = { },
@@ -230,6 +235,7 @@ private fun RegistrationScreen(
 
                 EmailTextField(
                     inputText = state.email.value,
+                    placeholderText = stringResource(id = R.string.email_text_placeholder),
                     showErrorState = state.email.isErrorState,
                     focusManager = focusManager,
                     onValueChange = { },
@@ -239,6 +245,7 @@ private fun RegistrationScreen(
 
                 PasswordInputTextField(
                     password = state.password.value,
+                    placeholderText = stringResource(id = R.string.password_text_placeholder),
                     stayDigit = state.password.stayDigit,
                     showErrorState = state.password.isErrorState,
                     onPasswordChange = { },
@@ -254,6 +261,7 @@ private fun RegistrationScreen(
 
                 ConfirmPasswordInputTextField(
                     password = state.confirmPassword.value,
+                    placeholderText = stringResource(id = R.string.confirm_password_text_placeholder),
                     showErrorState = state.confirmPassword.isErrorState,
                     onPasswordChange = { },
                     imeAction = ImeAction.Next,

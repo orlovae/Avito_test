@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextField
+import ru.alexandrorlov.avito_test.ui.theme.PlaceholderTextField
 import ru.alexandrorlov.avito_test.ui.theme.RedBorder
 import ru.alexandrorlov.avito_test.ui.theme.ShapesAvitoTest
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
@@ -26,6 +27,7 @@ import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 internal fun BaseInputTextField(
     modifier: Modifier = Modifier,
     inputText: String,
+    placeholderText: String = "",
     enabled: Boolean = true,
     readOnly: Boolean = false,
     hasFocus: Boolean,
@@ -38,7 +40,7 @@ internal fun BaseInputTextField(
     decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit,
 ) {
     BasicTextField(
-        value = inputText,
+        value = inputText.ifBlank { placeholderText },
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
@@ -57,7 +59,8 @@ internal fun BaseInputTextField(
             ),
         enabled = enabled,
         readOnly = readOnly,
-        textStyle = inputTextStyle,
+        textStyle = if (inputText.isBlank()) inputTextStyle.copy(color = PlaceholderTextField)
+        else inputTextStyle,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = true,
@@ -70,11 +73,45 @@ internal fun BaseInputTextField(
 
 @Preview()
 @Composable
+private fun BaseInputTextFieldEmptyPreview() {
+    BaseInputTextField(
+        inputText = "",
+        placeholderText = "Телефон или почта",
+        hasFocus = false,
+        errorState = false,
+        onValueChange = {},
+        decorationBox = @Composable { innerTextField ->
+            DecorationBox(
+                innerTextField
+            )
+        },
+    )
+}
+
+@Preview()
+@Composable
 private fun BaseInputTextFieldPreview() {
     BaseInputTextField(
         inputText = "Base Input Text Field",
         hasFocus = false,
         errorState = false,
+        onValueChange = {},
+        decorationBox = @Composable { innerTextField ->
+            DecorationBox(
+                innerTextField
+            )
+        },
+    )
+}
+
+@Preview()
+@Composable
+private fun BaseInputTextFieldEmptyErrorStatePreview() {
+    BaseInputTextField(
+        inputText = "",
+        placeholderText = "Телефон или почта",
+        hasFocus = true,
+        errorState = true,
         onValueChange = {},
         decorationBox = @Composable { innerTextField ->
             DecorationBox(

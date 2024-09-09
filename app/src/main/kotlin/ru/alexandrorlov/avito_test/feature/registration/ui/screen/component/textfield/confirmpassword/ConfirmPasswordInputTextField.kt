@@ -26,12 +26,15 @@ import ru.alexandrorlov.avito_test.common.ui.textfield.password.DecorationBox
 @Composable
 internal fun ConfirmPasswordInputTextField(
     password: String,
+    placeholderText: String,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
     imeAction: ImeAction,
     keyboardActions: KeyboardActions,
 ) {
-    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
+
+    var passwordHidden by rememberSaveable { mutableStateOf(false) }
 
     val visualTransformation by remember(passwordHidden) {
         mutableStateOf(
@@ -43,10 +46,6 @@ internal fun ConfirmPasswordInputTextField(
         )
     }
 
-    var hasFocus by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     Column {
         BaseInputTextField(
             modifier = Modifier
@@ -54,6 +53,7 @@ internal fun ConfirmPasswordInputTextField(
                     hasFocus = it.isFocused
                 },
             inputText = password,
+            placeholderText = if (hasFocus) "" else placeholderText,
             hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = { onPasswordChange(it) },
@@ -86,10 +86,13 @@ internal fun ConfirmPasswordInputTextField(
 @Composable
 private fun ConfirmPasswordInputTextField(
     password: String,
+    placeholderText: String,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
 ) {
-    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
+
+    var passwordHidden by rememberSaveable { mutableStateOf(false) }
 
     val visualTransformation by remember(passwordHidden) {
         mutableStateOf(
@@ -101,10 +104,6 @@ private fun ConfirmPasswordInputTextField(
         )
     }
 
-    var hasFocus by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     Column {
         BaseInputTextField(
             modifier = Modifier
@@ -112,6 +111,7 @@ private fun ConfirmPasswordInputTextField(
                     hasFocus = it.isFocused
                 },
             inputText = password,
+            placeholderText = if (hasFocus) "" else placeholderText,
             hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = { onPasswordChange(it) },
@@ -141,6 +141,7 @@ private fun ConfirmPasswordInputTextField(
 private fun ConfirmPasswordInputTextFieldStatePreview() {
     ConfirmPasswordInputTextField(
         password = "12345678",
+        placeholderText = stringResource(id = R.string.confirm_password_text_placeholder),
         showErrorState = false,
         onPasswordChange = { },
     )
@@ -151,6 +152,7 @@ private fun ConfirmPasswordInputTextFieldStatePreview() {
 private fun ConfirmPasswordInputTextFieldEmptyStatePreview() {
     ConfirmPasswordInputTextField(
         password = "",
+        placeholderText = stringResource(id = R.string.confirm_password_text_placeholder),
         showErrorState = true,
         onPasswordChange = { },
     )

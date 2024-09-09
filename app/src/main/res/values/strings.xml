@@ -16,6 +16,11 @@
     <string name="name_error_footer_text">Данное поле не должно быть пустым</string>
     <string name="email_error_footer_text">Введённое значение не является e-mail</string>
 
+    <string name="name_text_placeholder">Имя</string>
+    <string name="email_text_placeholder">Электронная почта</string>
+    <string name="password_text_placeholder">Пароль</string>
+    <string name="confirm_password_text_placeholder">Подтвердите пароль</string>
+
     <string name="confirm_password_error_state_text">Пароли не совпадают</string>
 
     <string name="show_password_text_field">Показать пароль</string>

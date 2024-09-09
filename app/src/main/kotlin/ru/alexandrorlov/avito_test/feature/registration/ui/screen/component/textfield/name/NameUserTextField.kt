@@ -24,22 +24,22 @@ import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
 @Composable
 internal fun NameUserTextField(
     inputText: String,
+    placeholderText: String,
     showErrorState: Boolean,
     focusManager: FocusManager,
     onValueChange: (String) -> Unit,
 ) {
-    var hasFocusName by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
 
     Column {
         BaseInputTextField(
             modifier = Modifier
                 .onFocusEvent {
-                    hasFocusName = it.isFocused
+                    hasFocus = it.isFocused
                 },
             inputText = inputText,
-            hasFocus = hasFocusName,
+            placeholderText = if (hasFocus) "" else placeholderText,
+            hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(
@@ -56,7 +56,7 @@ internal fun NameUserTextField(
             },
         )
 
-        if (hasFocusName && showErrorState) {
+        if (hasFocus && showErrorState) {
             SpacerSmallPadding()
 
             FooterTextField(
@@ -69,21 +69,21 @@ internal fun NameUserTextField(
 @Composable
 private fun NameUserTextField(
     inputText: String,
+    placeholderText: String,
     showErrorState: Boolean,
     onValueChange: (String) -> Unit,
 ) {
-    var hasFocusName by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
 
     Column {
         BaseInputTextField(
             modifier = Modifier
                 .onFocusEvent {
-                    hasFocusName = it.isFocused
+                    hasFocus = it.isFocused
                 },
             inputText = inputText,
-            hasFocus = hasFocusName,
+            placeholderText = if (hasFocus) "" else placeholderText,
+            hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(
@@ -110,6 +110,7 @@ private fun NameUserTextField(
 private fun NameUserTextFieldStatePreview() {
     NameUserTextField(
         inputText = "Aleksandr Orlov",
+        placeholderText = stringResource(id = R.string.name_text_placeholder),
         showErrorState = false,
         onValueChange = { },
     )
@@ -120,6 +121,7 @@ private fun NameUserTextFieldStatePreview() {
 private fun NameUserTextFieldEmptyStatePreview() {
     NameUserTextField(
         inputText = "",
+        placeholderText = stringResource(id = R.string.name_text_placeholder),
         showErrorState = true,
         onValueChange = { },
     )

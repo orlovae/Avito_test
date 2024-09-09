@@ -23,7 +23,7 @@ internal fun DecorationBox(
     onPasswordHiddenChange: (Boolean) -> Unit,
     innerTextField: @Composable () -> Unit,
 ) {
-    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var passwordHidden by rememberSaveable { mutableStateOf(false) }
 
     Row(
         modifier = Modifier

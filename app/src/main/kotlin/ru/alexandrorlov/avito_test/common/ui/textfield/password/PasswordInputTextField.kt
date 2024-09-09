@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -25,13 +26,16 @@ import ru.alexandrorlov.avito_test.common.ui.textfield.FooterTextField
 @Composable
 internal fun PasswordInputTextField(
     password: String,
+    placeholderText: String,
     stayDigit: Int,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
     imeAction: ImeAction,
     keyboardActions: KeyboardActions,
 ) {
-    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
+
+    var passwordHidden by rememberSaveable { mutableStateOf(false) }
 
     val visualTransformation by remember(passwordHidden) {
         mutableStateOf(
@@ -43,10 +47,6 @@ internal fun PasswordInputTextField(
         )
     }
 
-    var hasFocus by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     Column {
         BaseInputTextField(
             modifier = Modifier
@@ -54,6 +54,7 @@ internal fun PasswordInputTextField(
                     hasFocus = it.isFocused
                 },
             inputText = password,
+            placeholderText = if (hasFocus) "" else placeholderText,
             hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = { onPasswordChange(it) },
@@ -91,11 +92,14 @@ internal fun PasswordInputTextField(
 @Composable
 private fun PasswordInputTextField(
     password: String,
+    placeholderText: String,
     stayDigit: Int,
     showErrorState: Boolean,
     onPasswordChange: (String) -> Unit,
 ) {
-    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var hasFocus by rememberSaveable { mutableStateOf(false) }
+
+    var passwordHidden by rememberSaveable { mutableStateOf(false) }
 
     val visualTransformation by remember(passwordHidden) {
         mutableStateOf(
@@ -107,10 +111,6 @@ private fun PasswordInputTextField(
         )
     }
 
-    var hasFocus by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     Column {
         BaseInputTextField(
             modifier = Modifier
@@ -118,6 +118,7 @@ private fun PasswordInputTextField(
                     hasFocus = it.isFocused
                 },
             inputText = password,
+            placeholderText = if (hasFocus) "" else placeholderText,
             hasFocus = hasFocus,
             errorState = showErrorState,
             onValueChange = { onPasswordChange(it) },
@@ -152,6 +153,7 @@ private fun PasswordInputTextField(
 private fun PasswordInputTextFieldStatePreview() {
     PasswordInputTextField(
         password = "12345678",
+        placeholderText = stringResource(id = R.string.password_text_placeholder),
         stayDigit = 0,
         showErrorState = false,
         onPasswordChange = { },
@@ -163,6 +165,7 @@ private fun PasswordInputTextFieldStatePreview() {
 private fun PasswordInputTextFieldEmptyStatePreview() {
     PasswordInputTextField(
         password = "",
+        placeholderText = stringResource(id = R.string.password_text_placeholder),
         stayDigit = 8,
         showErrorState = true,
         onPasswordChange = { },
@@ -174,6 +177,7 @@ private fun PasswordInputTextFieldEmptyStatePreview() {
 private fun PasswordInputTextFieldErrorStatePreview() {
     PasswordInputTextField(
         password = "1234",
+        placeholderText = stringResource(id = R.string.password_text_placeholder),
         stayDigit = 4,
         showErrorState = true,
         onPasswordChange = { },

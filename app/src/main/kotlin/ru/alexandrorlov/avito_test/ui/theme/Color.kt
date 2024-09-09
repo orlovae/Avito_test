@@ -9,6 +9,7 @@ val BackgroundButton = Color(0xFF31AFF5)
 
 val RedBorder = Color(0xFFFF4242)
 val RedText = Color(0xFFFF4242)
+val PlaceholderTextField = Color(0xFF9d9d9d)
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

@@ -27,7 +27,7 @@ internal fun MainScreen(
         ) {
             NavGraph(
                 navController = navController,
-                startDestination = Screen.Auth.route(),
+                startDestination = Screen.Registration.route(),
             )
         }
     }
