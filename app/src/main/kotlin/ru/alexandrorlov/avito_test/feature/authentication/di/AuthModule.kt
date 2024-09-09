@@ -7,12 +7,16 @@ import dagger.multibindings.IntoMap
 import ru.alexandrorlov.avito_test.common.domain.validator.api.AllDataValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
+import ru.alexandrorlov.avito_test.feature.authentication.di.annotation.Auth
+import ru.alexandrorlov.avito_test.feature.authentication.di.annotation.ViewModelKey
+import ru.alexandrorlov.avito_test.feature.authentication.di.bindmodule.AuthRepositoryBindModule
 import ru.alexandrorlov.avito_test.feature.authentication.di.bindmodule.AuthValidatorBindModule
+import ru.alexandrorlov.avito_test.feature.authentication.domain.repository.AuthRepository
 import ru.alexandrorlov.avito_test.feature.authentication.ui.viewmodel.AuthViewModel
 
 @Module(includes = [
     AuthValidatorBindModule::class,
-//    RegistrationRepositoryBindModule::class,
+    AuthRepositoryBindModule::class,
 ])
 class AuthModule {
 
@@ -24,12 +28,12 @@ class AuthModule {
         emailValidator: EmailValidator,
         @Auth
         allDataValidator: AllDataValidator,
-//        registrationRepository: RegistrationRepository,
+        authRepository: AuthRepository,
     ): ViewModel =
         AuthViewModel(
             passwordValidator = passwordValidator,
             emailValidator = emailValidator,
             allDataValidator = allDataValidator,
-//            registrationRepository = registrationRepository,
+            authRepository = authRepository,
         )
 }

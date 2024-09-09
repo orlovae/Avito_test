@@ -7,7 +7,8 @@ import dagger.multibindings.IntoMap
 import ru.alexandrorlov.avito_test.common.domain.validator.api.AllDataValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
-import ru.alexandrorlov.avito_test.feature.authentication.di.ViewModelKey
+import ru.alexandrorlov.avito_test.feature.authentication.di.annotation.ViewModelKey
+import ru.alexandrorlov.avito_test.feature.registration.di.annotation.Registration
 import ru.alexandrorlov.avito_test.feature.registration.di.bindmodule.RegistrationRepositoryBindModule
 import ru.alexandrorlov.avito_test.feature.registration.di.bindmodule.RegistrationValidatorBindModule
 import ru.alexandrorlov.avito_test.feature.registration.domain.repository.RegistrationRepository

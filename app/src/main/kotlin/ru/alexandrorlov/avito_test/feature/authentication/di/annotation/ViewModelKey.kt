@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.di
+package ru.alexandrorlov.avito_test.feature.authentication.di.annotation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

@@ -3,7 +3,7 @@ package ru.alexandrorlov.avito_test.feature.registration.data.source
 import retrofit2.Response
 import ru.alexandrorlov.avito_test.common.model.user.UserRegistration
 import ru.alexandrorlov.avito_test.feature.registration.data.models.RegistrationResponse
-import ru.alexandrorlov.avito_test.feature.registration.di.RegistrationScope
+import ru.alexandrorlov.avito_test.feature.registration.di.annotation.RegistrationScope
 import javax.inject.Inject
 
 @RegistrationScope

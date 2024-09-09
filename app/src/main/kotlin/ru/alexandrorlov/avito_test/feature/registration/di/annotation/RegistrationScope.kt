@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.registration.di
+package ru.alexandrorlov.avito_test.feature.registration.di.annotation
 
 import javax.inject.Scope
 

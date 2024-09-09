@@ -14,6 +14,7 @@ import retrofit2.create
 import ru.alexandrorlov.avito_test.data.network.interceptor.AuthHeaderInterceptor
 import ru.alexandrorlov.avito_test.data.network.utils.NetworkConstants.BASE_URL
 import ru.alexandrorlov.avito_test.di.AppScope
+import ru.alexandrorlov.avito_test.feature.authentication.data.source.AuthApi
 import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 
 @Module
@@ -22,8 +23,8 @@ class NetworkModule {
     @[Provides AppScope]
     fun provideRegistrationApi(retrofit: Retrofit): RegistrationApi = retrofit.create()
 
-//    @[Provides AppScope]
-//    fun provideAuthenticationApi(retrofit: Retrofit): AuthenticationApi = retrofit.create()
+    @[Provides AppScope]
+    fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create()
 //
 //    @[Provides AppScope]
 //    fun provideProductListApi(retrofit: Retrofit): ProductListApi = retrofit.create()

@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.authentication.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import ru.alexandrorlov.avito_test.common.data.Either
 import ru.alexandrorlov.avito_test.common.domain.validator.api.AllDataValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
@@ -17,15 +19,18 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.model.state.Email
 import ru.alexandrorlov.avito_test.common.model.state.Password
 import ru.alexandrorlov.avito_test.common.model.user.UserAuth
+import ru.alexandrorlov.avito_test.feature.authentication.data.models.AuthResponse
+import ru.alexandrorlov.avito_test.feature.authentication.domain.repository.AuthRepository
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthEvent
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthViewState
+import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
     private val emailValidator: EmailValidator,
     private val passwordValidator: PasswordValidator,
     private val allDataValidator: AllDataValidator,
-//    private val registrationRepository: RegistrationRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<AuthViewState> =
         MutableStateFlow(
@@ -106,23 +111,24 @@ class AuthViewModel @Inject constructor(
                     email = _state.value.email.value,
                     password = _state.value.password.value,
                 )
-//                when (val either: Either<String, RegistrationResponse> =
-//                    registrationRepository.registrationUser(user = user)) {
-//
-//                    is Either.Success -> {
+                when (val either: Either<String, AuthResponse> =
+                    authRepository.authUser(user = user)) {
+
+                    is Either.Success -> {
+                        Log.d("OAE", "response = ${either.value}")
 //                        _event.emit(
 //                            AuthEvent.NavigateToProductListScreen
 //                        )
-//                    }
-//
-//                    is Either.Fail -> {
-//                        _sideEffect.emit(
-//                            SideEffect.SnackBar(
-//                                message = either.value.getErrorMessage()
-//                            )
-//                        )
-//                    }
-//                }
+                    }
+
+                    is Either.Fail -> {
+                        _sideEffect.emit(
+                            SideEffect.SnackBar(
+                                message = either.value.getErrorMessage()
+                            )
+                        )
+                    }
+                }
 
             }
             .launchIn(viewModelScope)

@@ -7,6 +7,7 @@ import ru.alexandrorlov.avito_test.common.di.CommonModule
 import ru.alexandrorlov.avito_test.common.domain.validator.api.EmailValidator
 import ru.alexandrorlov.avito_test.common.domain.validator.api.PasswordValidator
 import ru.alexandrorlov.avito_test.data.network.di.NetworkModule
+import ru.alexandrorlov.avito_test.feature.authentication.data.source.AuthApi
 import ru.alexandrorlov.avito_test.feature.authentication.di.dependecies.AuthDependencies
 import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.RegistrationDependencies
@@ -26,6 +27,8 @@ interface AppComponent : RegistrationDependencies, AuthDependencies {
     override fun passwordValidator(): PasswordValidator
 
     override fun registrationApi(): RegistrationApi
+
+    override fun authApi(): AuthApi
 
     @Component.Factory
     interface Factory {

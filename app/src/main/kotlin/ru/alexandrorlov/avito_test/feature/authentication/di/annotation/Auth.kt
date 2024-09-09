@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.authentication.di
+package ru.alexandrorlov.avito_test.feature.authentication.di.annotation
 
 import javax.inject.Qualifier
 
