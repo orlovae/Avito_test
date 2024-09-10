@@ -8,4 +8,7 @@ import javax.inject.Inject
 class ProductRemoteSource @Inject constructor(private val api: ProductListApi) {
 
     suspend fun getRemoteData(): RemoteData = api.getRemoteData()
+
+    suspend fun getRemoteDataByCategory(category: String): RemoteData =
+        api.getRemoteDataByCategory(category = category)
 }

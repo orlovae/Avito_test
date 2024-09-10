@@ -25,4 +25,20 @@ class ProductListRepositoryImpl @Inject constructor(
 
         return productList
     }
+
+    override suspend fun getProductListByCategory(category: String): List<Product> {
+        val remoteData: RemoteData = remoteSource.getRemoteDataByCategory(category = category)
+
+        val productList: List<Product> = remoteData.productList
+            .requireNoNulls()
+            .map { product: ProductRemote ->
+                product.toProduct()
+            }
+
+        return productList
+    }
+
+    override suspend fun getAllProductSortByPrice(price: String) {
+        TODO("Not yet implemented")
+    }
 }

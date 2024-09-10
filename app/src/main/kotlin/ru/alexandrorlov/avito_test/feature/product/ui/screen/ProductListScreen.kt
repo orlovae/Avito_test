@@ -143,7 +143,6 @@ private fun ProductListScreen(
                         modifier = Modifier
                             .weight(10f)
                             .fillMaxSize(),
-//                        contentPadding = PaddingValues(dimensionResource(id = R.dimen.x_x_small_padding)),
                     ) {
                         items(data.content) { product: ProductUI ->
                             CardProduct(

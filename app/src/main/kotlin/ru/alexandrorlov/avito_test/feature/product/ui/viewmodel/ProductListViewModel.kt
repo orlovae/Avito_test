@@ -69,8 +69,11 @@ class ProductListViewModel @Inject constructor(
 
     private fun observeOnSelectedCategory() =
         onSelectedCategory
+            .onEach {
+                _state.emit(ScreenState.Loading)
+            }
             .onEach { nameCategory: String ->
-
+                getProductListFilerByCategory(category = nameCategory)
             }
             .launchIn(viewModelScope)
 
@@ -87,4 +90,21 @@ class ProductListViewModel @Inject constructor(
 
             }
             .launchIn(viewModelScope)
+
+    private suspend fun getProductListFilerByCategory(category: String) =
+            kotlin.runCatching {
+                val productList: List<ProductUI> =
+                    repository.getProductListByCategory(category = category)
+                        .map { product: Product ->
+                            product.toProductUI()
+                        }
+                _state.emit(ScreenState.Content(productList))
+            }.getOrElse {
+//                _state.emit(ScreenState.Error(it.message ?: "ERROR"))
+                _sideEffect.emit(
+                    SideEffect.SnackBar(
+                        message = it.message?.getErrorMessage() ?: "Unknown Error"
+                    )
+                )
+            }
 }
