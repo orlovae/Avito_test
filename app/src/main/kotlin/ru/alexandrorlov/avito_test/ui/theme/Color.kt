@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 val BackgroundApp = Color(0xFF121212)
 val BackgroundTextField = Color(0xFF262624)
+val BackgroundTextFieldInvert = Color(0xFFd9d9db)
 val LightGreyButton = Color(0xFFE9E9E9)
 val BackgroundButton = Color(0xFF31AFF5)
 
@@ -11,6 +12,7 @@ val RedBorder = Color(0xFFFF4242)
 val RedText = Color(0xFFFF4242)
 val PlaceholderTextField = Color(0xFF9d9d9d)
 val CategoryText = Color(0xFFe3e3e3)
+val CategoryTextInvert = Color(0xFF1c1c1c)
 val ProductText = Color(0xFFe3e3e3)
 
 val CircularProgress = Color(0xFF0094FF)
