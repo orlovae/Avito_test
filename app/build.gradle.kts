@@ -74,6 +74,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.core)
 
+    implementation(libs.coil)
+
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
 }

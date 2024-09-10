@@ -32,4 +32,7 @@
         <item quantity="one">Осталось ввести %d символ</item>
         <item quantity="other">Осталось ввести %d символов</item>
     </plurals>
+
+    <string name="price_up_filter">Цена \u2191</string>
+    <string name="price_down_filter">Цена \u2193</string>
 </resources>

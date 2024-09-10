@@ -51,6 +51,16 @@ data class TypographyAvitoTest(
         fontWeight = FontWeight.W600,
         fontSize = 24.sp,
     ),
+    val textFilter: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W600,
+        fontSize = 18.sp,
+    ),
+    val textCategory: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W600,
+        fontSize = 12.sp,
+    ),
 )
 
 val LocalTextStyle = staticCompositionLocalOf { TypographyAvitoTest() }
