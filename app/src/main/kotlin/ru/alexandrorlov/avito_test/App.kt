@@ -18,11 +18,11 @@ class App : Application() {
         appComponent = DaggerAppComponent.factory().create(this)
 
         registrationComponent = DaggerRegistrationComponent.factory().create(
-            registrationDependencies = appComponent,
+            dependencies = appComponent,
         )
 
         authComponent = DaggerAuthComponent.factory().create(
-            authDependencies = appComponent,
+            dependencies = appComponent,
         )
 
         productListComponent = DaggerProductComponent.factory().create(

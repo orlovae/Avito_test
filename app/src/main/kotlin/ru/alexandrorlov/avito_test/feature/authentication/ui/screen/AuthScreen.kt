@@ -33,8 +33,18 @@ import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthViewStat
 import ru.alexandrorlov.avito_test.feature.authentication.ui.viewmodel.AuthViewModel
 
 @Composable
-internal fun AuthScreen(
-    viewModel: AuthViewModel = daggerViewModel(),
+fun AuthScreen(
+    navigateToScreen: () -> Unit,
+) {
+    AuthScreen(
+        viewModel = daggerViewModel(),
+        navigateToScreen = navigateToScreen,
+        )
+}
+
+@Composable
+private fun AuthScreen(
+    viewModel: AuthViewModel,
     navigateToScreen: () -> Unit,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current

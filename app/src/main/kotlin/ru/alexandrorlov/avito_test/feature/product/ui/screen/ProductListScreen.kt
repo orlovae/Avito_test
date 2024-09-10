@@ -35,6 +35,7 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.LoadingScreen
 import ru.alexandrorlov.avito_test.common.ui.SnackbarAvitoTest
 import ru.alexandrorlov.avito_test.common.ui.SpacerSmallPadding
+import ru.alexandrorlov.avito_test.di.daggerViewModel
 import ru.alexandrorlov.avito_test.feature.product.ui.Category
 import ru.alexandrorlov.avito_test.feature.product.ui.fakeFilter
 import ru.alexandrorlov.avito_test.feature.product.ui.fakeListCategory
@@ -46,7 +47,17 @@ import ru.alexandrorlov.avito_test.feature.product.ui.screen.component.Filter
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewModel
 
 @Composable
-internal fun ProductListScreen(
+fun ProductListScreen(
+    navigateToProductDetailScreen: (String) -> Unit,
+) {
+    ProductListScreen(
+        viewModel = daggerViewModel(),
+        navigateToProductDetailScreen = navigateToProductDetailScreen,
+    )
+}
+
+@Composable
+private fun ProductListScreen(
     viewModel: ProductListViewModel,
     navigateToProductDetailScreen: (String) -> Unit,
 ) {

@@ -18,7 +18,7 @@ interface AuthComponent {
     @Component.Factory
     interface FeatureComponentFactory {
         fun create(
-            authDependencies: AuthDependencies
+            dependencies: AuthDependencies
         ): AuthComponent
     }
 }

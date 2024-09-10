@@ -28,7 +28,7 @@ class AuthViewModel @Inject constructor(
     private val emailValidator: EmailValidator,
     private val passwordValidator: PasswordValidator,
     private val allDataValidator: AllDataValidator,
-    private val authRepository: AuthRepository,
+    private val repository: AuthRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<AuthViewState> =
         MutableStateFlow(
@@ -110,7 +110,7 @@ class AuthViewModel @Inject constructor(
                     password = _state.value.password.value,
                 )
                 when (val either: Either<String, Boolean> =
-                    authRepository.authUser(user = user)) {
+                    repository.authUser(user = user)) {
 
                     is Either.Success -> {
                         _event.emit(

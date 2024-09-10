@@ -28,12 +28,12 @@ class AuthModule {
         emailValidator: EmailValidator,
         @Auth
         allDataValidator: AllDataValidator,
-        authRepository: AuthRepository,
+        repository: AuthRepository,
     ): ViewModel =
         AuthViewModel(
             passwordValidator = passwordValidator,
             emailValidator = emailValidator,
             allDataValidator = allDataValidator,
-            authRepository = authRepository,
+            repository = repository,
         )
 }

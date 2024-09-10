@@ -33,7 +33,7 @@ class RegistrationViewModel @Inject constructor(
     private val passwordValidator: PasswordValidator,
     private val emailValidator: EmailValidator,
     private val allDataValidator: AllDataValidator,
-    private val registrationRepository: RegistrationRepository,
+    private val repository: RegistrationRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<RegistrationViewState> =
         MutableStateFlow(
@@ -157,7 +157,7 @@ class RegistrationViewModel @Inject constructor(
                     cpassword = _state.value.confirmPassword.value,
                 )
                 when (val either: Either<String, RegistrationResponse> =
-                    registrationRepository.registrationUser(user = user)) {
+                    repository.registrationUser(user = user)) {
 
                     is Either.Success -> {
                         _event.emit(

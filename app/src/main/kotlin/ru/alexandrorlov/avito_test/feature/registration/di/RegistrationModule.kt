@@ -37,6 +37,6 @@ class RegistrationModule {
             passwordValidator = passwordValidator,
             emailValidator = emailValidator,
             allDataValidator = allDataValidator,
-            registrationRepository = registrationRepository,
+            repository = registrationRepository,
         )
 }

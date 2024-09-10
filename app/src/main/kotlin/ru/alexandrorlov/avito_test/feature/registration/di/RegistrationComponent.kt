@@ -19,7 +19,7 @@ interface RegistrationComponent {
     @Component.Factory
     interface FeatureComponentFactory {
         fun create(
-            registrationDependencies: RegistrationDependencies
+            dependencies: RegistrationDependencies
         ): RegistrationComponent
     }
 }
