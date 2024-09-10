@@ -6,12 +6,17 @@
     <dimen name="medium_padding">16dp</dimen>
     <dimen name="small_snackbar_bottom_padding">80dp</dimen>
 
-    <!-- Global Size -->
+    <!-- Global thickness -->
     <dimen name="border_thickness_text_field">1dp</dimen>
     <dimen name="border_thickness_snackbar">1dp</dimen>
     <dimen name="border_thickness_category">1dp</dimen>
+    <dimen name="thickness_indicator_loading">5dp</dimen>
+
+    <!-- Global Size -->
+    <dimen name="image_product">120dp</dimen>
 
     <!-- Global radius -->
-    <dimen name="card_radius">2dp</dimen>
+    <dimen name="radius_card_category">2dp</dimen>
+    <dimen name="radius_card_product">16dp</dimen>
 
 </resources>

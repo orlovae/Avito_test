@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.product_list.data.models
+package ru.alexandrorlov.avito_test.feature.product.data.models
 
 
 import kotlinx.serialization.SerialName

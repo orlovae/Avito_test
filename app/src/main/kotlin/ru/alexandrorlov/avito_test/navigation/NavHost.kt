@@ -8,9 +8,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ru.alexandrorlov.avito_test.App
 import ru.alexandrorlov.avito_test.di.Inject
+import ru.alexandrorlov.avito_test.di.daggerViewModel
 import ru.alexandrorlov.avito_test.feature.authentication.ui.screen.AuthScreen
+import ru.alexandrorlov.avito_test.feature.product.ui.screen.ProductListScreen
 import ru.alexandrorlov.avito_test.feature.product_detail.ui.screen.ProductDetailScreen
-import ru.alexandrorlov.avito_test.feature.product_list.ui.screen.ProductListScreen
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.RegistrationScreen
 
 @Composable
@@ -27,6 +28,7 @@ fun NavGraph(
             route = Screen.Registration.route(),
         ) { navBackStackEntry ->
             navBackStackEntry.destination
+
             Inject(
                 viewModelFactory = App.registrationComponent.getViewModelFactory()
             ) {
@@ -44,6 +46,7 @@ fun NavGraph(
             route = Screen.Auth.route(),
         ) { navBackStackEntry ->
             navBackStackEntry.destination
+
             Inject(
                 viewModelFactory = App.authComponent.getViewModelFactory()
             ) {
@@ -63,9 +66,16 @@ fun NavGraph(
         ) { navBackStackEntry ->
             navBackStackEntry.destination
 
-            ProductListScreen(
+            Inject(
+                viewModelFactory = App.productListComponent.getViewModelFactory()
+            ) {
+                ProductListScreen(
+                    viewModel = daggerViewModel(),
+                    navigateToProductDetailScreen = {
 
-            )
+                    },
+                )
+            }
         }
 
         composable(

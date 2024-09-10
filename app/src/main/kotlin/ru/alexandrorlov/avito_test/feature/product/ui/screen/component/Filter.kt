@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.product_list.ui.screen.component
+package ru.alexandrorlov.avito_test.feature.product.ui.screen.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Spacer

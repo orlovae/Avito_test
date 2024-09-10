@@ -10,6 +10,7 @@ sealed class StringValue {
     class StringResource(
         @StringRes val resId: Int,
         val args: String = "",
+        val isArgsFirst: Boolean = true,
     ) : StringValue()
 
     fun asString(context: Context): String {
@@ -19,9 +20,20 @@ sealed class StringValue {
                 if (args.isBlank()) {
                     context.getString(resId)
                 } else {
-                    "${context.getString(resId)} $args"
+                    getStringWithArgs(isArgsFirst, resId, args, context)
                 }
             }
         }
     }
+
+    private fun getStringWithArgs(
+        isArgsFirst: Boolean,
+        @StringRes resId: Int,
+        args: String,
+        context: Context): String =
+        if (isArgsFirst) {
+            "$args ${context.getString(resId)}"
+        } else {
+            "${context.getString(resId)} $args"
+        }
 }

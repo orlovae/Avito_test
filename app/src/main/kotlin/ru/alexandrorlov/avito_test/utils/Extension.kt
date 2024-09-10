@@ -2,11 +2,18 @@ package ru.alexandrorlov.avito_test.utils
 
 import androidx.annotation.StringRes
 
-fun getStringValueFromString(value: String, @StringRes stringId: Int): StringValue =
-    if (value.isBlank()) {
+fun getStringValueFromString(value: String?, @StringRes stringId: Int): StringValue =
+    if (value.isNullOrBlank()) {
         StringValue.StringResource(stringId)
     } else {
         StringValue.DynamicString(value)
+    }
+
+fun getStringValueFromString(value: Int?, @StringRes stringId: Int): StringValue =
+    if (value != null) {
+        StringValue.DynamicString(value.toString())
+    } else {
+        StringValue.StringResource(stringId)
     }
 
 fun String.isAllCharsDigits() =

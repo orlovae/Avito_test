@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 val Typography = Typography()
@@ -60,6 +61,22 @@ data class TypographyAvitoTest(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W600,
         fontSize = 12.sp,
+    ),
+    val textTitleProduct: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W600,
+        fontSize = 12.sp,
+    ),
+    val textPriceProduct: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W600,
+        fontSize = 18.sp,
+    ),
+    val textDiscountedPriceProduct: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W600,
+        fontSize = 16.sp,
+        textDecoration = TextDecoration.LineThrough,
     ),
 )
 

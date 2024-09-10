@@ -35,4 +35,8 @@
 
     <string name="price_up_filter">Цена \u2191</string>
     <string name="price_down_filter">Цена \u2193</string>
+
+    <string name="product_no_name">Описание отсутствует</string>
+    <string name="ruble_sing">\u20BD</string>
+
 </resources>

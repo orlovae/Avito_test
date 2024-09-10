@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.feature.product_list.ui.screen.component
+package ru.alexandrorlov.avito_test.feature.product.ui.screen.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -28,11 +28,11 @@ import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 internal fun Category(
     title: String,
     urlPhoto: String,
-    onClickCategory: () -> Unit,
+    onSelectedCategory: () -> Unit,
 ) {
     Card(
         modifier = Modifier
-            .clip(shape = RoundedCornerShape(dimensionResource(id = R.dimen.card_radius))),
+            .clip(shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_card_category))),
         colors = CardColors(
             containerColor = BackgroundTextField,
             contentColor = CategoryText,
@@ -60,7 +60,7 @@ internal fun Category(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        onClickCategory()
+                        onSelectedCategory()
                     },
                 error = painterResource(id = R.drawable.ic_launcher_error),
                 contentDescription = title,
@@ -76,6 +76,6 @@ private fun CategoryPreview() {
     Category(
         title = "Одежда",
         urlPhoto = "https://avatars.mds.yandex.net/i?id=f239fd141d2fa1a8ebd4e6d845d7136115ff9198f84a1213-12666658-images-thumbs&n=13",
-        onClickCategory = {  }
+        onSelectedCategory = {  }
     )
 }

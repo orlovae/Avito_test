@@ -11,6 +11,9 @@ val RedBorder = Color(0xFFFF4242)
 val RedText = Color(0xFFFF4242)
 val PlaceholderTextField = Color(0xFF9d9d9d)
 val CategoryText = Color(0xFFe3e3e3)
+val ProductText = Color(0xFFe3e3e3)
+
+val CircularProgress = Color(0xFF0094FF)
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

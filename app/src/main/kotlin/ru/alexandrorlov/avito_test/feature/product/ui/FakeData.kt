@@ -1,7 +1,6 @@
-package ru.alexandrorlov.avito_test.feature.product_list.ui
+package ru.alexandrorlov.avito_test.feature.product.ui
 
-import androidx.annotation.StringRes
-import ru.alexandrorlov.avito_test.R
+import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
 
 internal data class Category(
     val title: String,
@@ -30,14 +29,6 @@ internal val fakeListCategory: List<Category> = listOf(
         urlPhoto = "https://avatars.mds.yandex.net/i?id=85845f5402c628f1782a72254753d45e8aba58ea-4591921-images-thumbs&n=13",
     ),
 )
-
-internal sealed class Filter(
-    @StringRes
-    val titleId: Int,
-) {
-    data object PriceUp : Filter(titleId = R.string.price_up_filter)
-    data object PriceDown : Filter(titleId = R.string.price_down_filter)
-}
 
 internal val fakeFilter: List<Filter> = listOf(
     Filter.PriceUp,
