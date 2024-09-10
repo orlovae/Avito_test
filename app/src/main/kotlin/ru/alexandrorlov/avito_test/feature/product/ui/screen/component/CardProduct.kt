@@ -77,7 +77,7 @@ internal fun CardProduct(
                     text = product.discountedPrice.asString(context = context),
                     style = MaterialTheme.TypographyAvitoTest.textDiscountedPriceProduct,
                 )
-                
+
                 if (price.isNotBlank()) {
                     Text(
                         text = product.price.asString(context = context),

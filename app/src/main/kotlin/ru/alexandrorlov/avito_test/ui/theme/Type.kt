@@ -70,13 +70,13 @@ data class TypographyAvitoTest(
     val textPriceProduct: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W600,
-        fontSize = 18.sp,
+        fontSize = 16.sp,
+        textDecoration = TextDecoration.LineThrough,
     ),
     val textDiscountedPriceProduct: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W600,
-        fontSize = 16.sp,
-        textDecoration = TextDecoration.LineThrough,
+        fontSize = 18.sp,
     ),
 )
 
