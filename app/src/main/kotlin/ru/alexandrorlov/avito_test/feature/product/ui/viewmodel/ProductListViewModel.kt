@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
+import ru.alexandrorlov.avito_test.feature.product.data.models.Category
 import ru.alexandrorlov.avito_test.feature.product.domain.models.Product
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.ProductListRepository
 import ru.alexandrorlov.avito_test.feature.product.ui.mapper.toProductUI
@@ -31,7 +32,7 @@ class ProductListViewModel @Inject constructor(
         MutableSharedFlow(extraBufferCapacity = 1)
     val sideEffect: SharedFlow<SideEffect> = _sideEffect
 
-    val onSelectedCategory: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
+    val onSelectedCategory: MutableSharedFlow<Category> = MutableSharedFlow(extraBufferCapacity = 1)
     val onSelectedFilter: MutableSharedFlow<Filter> = MutableSharedFlow(extraBufferCapacity = 1)
     val onClickProduct: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
 
@@ -65,8 +66,12 @@ class ProductListViewModel @Inject constructor(
             .onEach {
                 _state.emit(ScreenState.Loading)
             }
-            .onEach { title: String ->
-                getProductListFilerByCategory(title = title)
+            .onEach { category: Category ->
+                if (category.isSelected.not()) {
+                    getProductListFilerByCategory(title = category.title)
+                } else {
+                    getAllProduct()
+                }
             }
             .launchIn(viewModelScope)
 

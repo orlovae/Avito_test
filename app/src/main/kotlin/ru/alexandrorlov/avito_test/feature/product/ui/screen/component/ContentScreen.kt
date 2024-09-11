@@ -26,6 +26,8 @@ internal fun ContentScreen(
         Loading -> { LoadingScreen(modifier = modifier) }
 
         is Content -> {
+
+            Log.d("OAE", "list size = ${state.content.size}")
             Column(modifier = modifier) {
                 SpacerSmallPadding()
 

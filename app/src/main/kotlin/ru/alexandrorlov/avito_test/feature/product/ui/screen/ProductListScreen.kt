@@ -85,7 +85,7 @@ private fun ProductListScreen(
                 state = stateHeaderScreen,
                 onSelectedCategory = { category: Category ->
                     headerViewModel.onSelectedCategory.tryEmit(category.id)
-                    productListViewModel.onSelectedCategory.tryEmit(category.title)
+                    productListViewModel.onSelectedCategory.tryEmit(category)
                 },
                 onSelectedFilter = { filter: Filter ->
                     productListViewModel.onSelectedFilter.tryEmit((filter))
