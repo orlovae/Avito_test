@@ -3,9 +3,8 @@ package ru.alexandrorlov.avito_test.feature.product.ui.screen.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -42,6 +41,7 @@ internal fun CategoryView(
 
     Card(
         modifier = Modifier
+            .wrapContentWidth()
             .clip(shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_card_category)))
             .clickable { onSelectedCategory() },
         colors = CardColors(
@@ -55,11 +55,7 @@ internal fun CategoryView(
             color = if (isSelected) RedBorder else Color.Unspecified,
         ),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 modifier = Modifier
                     .padding(
@@ -72,8 +68,6 @@ internal fun CategoryView(
 
             AsyncImage(
                 model = category.urlPhoto,
-                modifier = Modifier
-                    .fillMaxWidth(),
                 error = painterResource(id = R.drawable.ic_launcher_error),
                 contentDescription = category.title,
                 contentScale = ContentScale.FillWidth,

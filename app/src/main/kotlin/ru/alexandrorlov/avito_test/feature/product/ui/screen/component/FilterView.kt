@@ -63,11 +63,25 @@ internal fun FilterView(
 
 @Preview
 @Composable
-private fun FilterViewPreview() {
+private fun FilterViewUnSelectedPreview() {
     FilterView(
         filter = Filter(
             idTitle = R.string.price_up_filter,
             query = "",
+        )
+        ,
+        onSelected = { },
+    )
+}
+
+@Preview
+@Composable
+private fun FilterViewSelectedPreview() {
+    FilterView(
+        filter = Filter(
+            idTitle = R.string.price_up_filter,
+            query = "",
+            isSelected = true,
         )
         ,
         onSelected = { },

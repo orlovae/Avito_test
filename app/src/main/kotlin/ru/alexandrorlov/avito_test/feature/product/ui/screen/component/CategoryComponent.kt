@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.ScreenState.Content
@@ -17,6 +19,7 @@ import ru.alexandrorlov.avito_test.common.model.ScreenState.Error
 import ru.alexandrorlov.avito_test.common.model.ScreenState.Loading
 import ru.alexandrorlov.avito_test.common.ui.LoadingScreen
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
+import ru.alexandrorlov.avito_test.feature.product.ui.fakeListCategory
 
 @Composable
 internal fun CategoryComponent(
@@ -53,4 +56,25 @@ internal fun CategoryComponent(
             Log.d("OAE", "Error ${stateCategory.message}")
         }
     }
+}
+
+@Preview
+@Composable
+private fun CategoryComponentScreenStateLoadingPreview() {
+    CategoryComponent(
+        modifier = Modifier,
+        stateCategory = Loading,
+        onSelectedCategory = { },
+    )
+}
+
+@Preview
+@Composable
+private fun CategoryComponentScreenStateContentPreview() {
+    CategoryComponent(
+        modifier = Modifier
+            .wrapContentHeight(),
+        stateCategory = Content(fakeListCategory),
+        onSelectedCategory = { },
+    )
 }
