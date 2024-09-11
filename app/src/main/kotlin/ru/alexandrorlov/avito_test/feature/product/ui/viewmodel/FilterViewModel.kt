@@ -12,35 +12,35 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
-import ru.alexandrorlov.avito_test.feature.product.data.models.Category
-import ru.alexandrorlov.avito_test.feature.product.domain.repository.HeaderRepository
+import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
+import ru.alexandrorlov.avito_test.feature.product.domain.repository.FilterRepository
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
-class HeaderViewModel @Inject constructor(
-    private val repository: HeaderRepository,
+class FilterViewModel @Inject constructor(
+    private val repository: FilterRepository,
 ) : ViewModel() {
-    private val _state: MutableStateFlow<ScreenState<List<Category>>> =
+    private val _state: MutableStateFlow<ScreenState<List<Filter>>> =
         MutableStateFlow(ScreenState.Loading)
-    val state: StateFlow<ScreenState<List<Category>>> = _state.asStateFlow()
+    val state: StateFlow<ScreenState<List<Filter>>> = _state.asStateFlow()
 
     private val _sideEffect: MutableSharedFlow<SideEffect> =
         MutableSharedFlow(extraBufferCapacity = 1)
     val sideEffect: SharedFlow<SideEffect> = _sideEffect
 
-    val onSelectedCategory: MutableSharedFlow<Int> = MutableSharedFlow(extraBufferCapacity = 1)
+    val onSelectedFilter: MutableSharedFlow<Int> = MutableSharedFlow(extraBufferCapacity = 1)
 
     init {
-        getAllCategory()
-        observerCategory()
+        getAllFilter()
+        observerFilterList()
     }
 
-    private fun getAllCategory() {
+    private fun getAllFilter() =
         viewModelScope.launch {
             kotlin.runCatching {
-                repository.getAllCategory()
-                    .collect { categoryList: List<Category> ->
-                        _state.emit(ScreenState.Content(categoryList))
+                repository.getAllFilter()
+                    .collect { filterList: List<Filter> ->
+                        _state.emit(ScreenState.Content(filterList))
                     }
             }.getOrElse {
                 _sideEffect.emit(
@@ -50,13 +50,11 @@ class HeaderViewModel @Inject constructor(
                 )
             }
         }
-    }
 
-    private fun observerCategory() {
-        onSelectedCategory
-            .onEach { id: Int ->
-                repository.updateSelectedCategory(idCategory = id)
+    private fun observerFilterList() =
+        onSelectedFilter
+            .onEach { idTitle: Int ->
+                repository.updateSelectedFilter(idTitle = idTitle)
             }
             .launchIn(viewModelScope)
-    }
 }

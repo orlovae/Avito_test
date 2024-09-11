@@ -1,11 +1,18 @@
 package ru.alexandrorlov.avito_test.feature.product.ui
 
+import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
-import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
+import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
 
-internal val fakeFilter: List<Filter> = listOf(
-    Filter.PriceUp,
-    Filter.PriceDown,
+internal val fakeListFilter: List<Filter> = listOf(
+    Filter(
+        idTitle = R.string.price_up_filter,
+        query = Filter.QUERY_PRICE_UP,
+    ),
+    Filter(
+        idTitle = R.string.price_down_filter,
+        query = Filter.QUERY_PRICE_DOWN,
+    ),
 )
 
 val fakeListCategory: List<Category> = listOf(

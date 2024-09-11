@@ -10,7 +10,7 @@ import ru.alexandrorlov.avito_test.feature.product.ui.fakeListCategory
 import javax.inject.Inject
 
 @ProductScope
-class HeaderSource @Inject constructor() {
+class CategorySource @Inject constructor() {
     private val _listCategory: MutableStateFlow<List<Category>> =
         MutableStateFlow(value = fakeListCategory)
     private val listCategory: StateFlow<List<Category>> = _listCategory.asStateFlow()

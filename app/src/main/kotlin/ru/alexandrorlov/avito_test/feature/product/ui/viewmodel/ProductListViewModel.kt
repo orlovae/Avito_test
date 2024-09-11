@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
+import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
 import ru.alexandrorlov.avito_test.feature.product.domain.models.Product
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.ProductListRepository
 import ru.alexandrorlov.avito_test.feature.product.ui.mapper.toProductUI
-import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
 import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductUI
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
@@ -35,6 +35,11 @@ class ProductListViewModel @Inject constructor(
     val onSelectedCategory: MutableSharedFlow<Category> = MutableSharedFlow(extraBufferCapacity = 1)
     val onSelectedFilter: MutableSharedFlow<Filter> = MutableSharedFlow(extraBufferCapacity = 1)
     val onClickProduct: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
+
+    private val _onSelectedTitleCategory: MutableStateFlow<String> =
+        MutableStateFlow("")
+    private val _onSelectedQueryFilter: MutableStateFlow<String> =
+        MutableStateFlow("")
 
     init {
         getAllProduct()
@@ -63,12 +68,15 @@ class ProductListViewModel @Inject constructor(
 
     private fun observeOnSelectedCategory() =
         onSelectedCategory
+            .onEach { category: Category ->
+                _onSelectedTitleCategory.emit(category.title)
+            }
             .onEach {
                 _state.emit(ScreenState.Loading)
             }
             .onEach { category: Category ->
                 if (category.isSelected.not()) {
-                    getProductListFilerByCategory(title = category.title)
+                    getProductListByCategory()
                 } else {
                     getAllProduct()
                 }
@@ -78,7 +86,14 @@ class ProductListViewModel @Inject constructor(
     private fun observeOnSelectedFilter() =
         onSelectedFilter
             .onEach { filter: Filter ->
-
+                _onSelectedQueryFilter.emit(filter.query)
+            }
+            .onEach { filter: Filter ->
+                if (filter.isSelected.not()) {
+                    getProductListByCategory()
+                } else {
+                    getAllProduct()
+                }
             }
             .launchIn(viewModelScope)
 
@@ -89,19 +104,27 @@ class ProductListViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
 
-    private suspend fun getProductListFilerByCategory(title: String) =
-            kotlin.runCatching {
-                val productList: List<ProductUI> =
-                    repository.getProductListByCategory(title = title)
-                        .map { product: Product ->
-                            product.toProductUI()
-                        }
-                _state.emit(ScreenState.Content(content = productList))
-            }.getOrElse {
-                _sideEffect.emit(
-                    SideEffect.SnackBar(
-                        message = it.message?.getErrorMessage() ?: "Unknown Error"
-                    )
+    private suspend fun getProductListByCategory() =
+        kotlin.runCatching {
+            _state.emit(ScreenState.Loading)
+
+            val queryFilter: String = _onSelectedQueryFilter.value
+            val titleCategory: String = _onSelectedTitleCategory.value
+
+            val productList: List<ProductUI> =
+                repository.getProductListByCategory(
+                    titleCategory = titleCategory,
+                    queryFilter = queryFilter,
                 )
-            }
+                    .map { product: Product ->
+                        product.toProductUI()
+                    }
+            _state.emit(ScreenState.Content(content = productList))
+        }.getOrElse {
+            _sideEffect.emit(
+                SideEffect.SnackBar(
+                    message = it.message?.getErrorMessage() ?: "Unknown Error"
+                )
+            )
+        }
 }

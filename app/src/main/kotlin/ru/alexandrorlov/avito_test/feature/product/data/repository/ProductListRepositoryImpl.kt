@@ -26,8 +26,14 @@ class ProductListRepositoryImpl @Inject constructor(
         return productList
     }
 
-    override suspend fun getProductListByCategory(title: String): List<Product> {
-        val remoteData: RemoteData = remoteSource.getRemoteDataByCategory(category = title)
+    override suspend fun getProductListByCategory(
+        titleCategory: String,
+        queryFilter: String,
+        ): List<Product> {
+        val remoteData: RemoteData = remoteSource.getRemoteDataByCategory(
+            titleCategory = titleCategory,
+            queryFilter = queryFilter,
+            )
 
         val productList: List<Product> = remoteData.productList
             .requireNoNulls()
@@ -36,9 +42,5 @@ class ProductListRepositoryImpl @Inject constructor(
             }
 
         return productList
-    }
-
-    override suspend fun getAllProductSortByPrice(price: String) {
-        TODO("Not yet implemented")
     }
 }

@@ -6,9 +6,11 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.alexandrorlov.avito_test.feature.authentication.di.annotation.ViewModelKey
 import ru.alexandrorlov.avito_test.feature.product.di.bindmodule.ProductListRepositoryBindModule
-import ru.alexandrorlov.avito_test.feature.product.domain.repository.HeaderRepository
+import ru.alexandrorlov.avito_test.feature.product.domain.repository.CategoryRepository
+import ru.alexandrorlov.avito_test.feature.product.domain.repository.FilterRepository
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.ProductListRepository
-import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.HeaderViewModel
+import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.CategoryViewModel
+import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.FilterViewModel
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewModel
 
 @Module(includes = [
@@ -16,11 +18,19 @@ import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewM
 ])
 class ProductModule {
 
-    @[IntoMap Provides ViewModelKey(HeaderViewModel::class)]
-    fun provideHeaderViewModel(
-        repository: HeaderRepository,
+    @[IntoMap Provides ViewModelKey(FilterViewModel::class)]
+    fun provideFilterViewModel(
+        repository: FilterRepository,
     ): ViewModel =
-        HeaderViewModel(
+        FilterViewModel(
+            repository = repository,
+        )
+
+    @[IntoMap Provides ViewModelKey(CategoryViewModel::class)]
+    fun provideCategoryViewModel(
+        repository: CategoryRepository,
+    ): ViewModel =
+        CategoryViewModel(
             repository = repository,
         )
 

@@ -3,7 +3,7 @@ package ru.alexandrorlov.avito_test.feature.product.domain.repository
 import kotlinx.coroutines.flow.Flow
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
 
-interface HeaderRepository {
+interface CategoryRepository {
 
     suspend fun getAllCategory(): Flow<List<Category>>
 

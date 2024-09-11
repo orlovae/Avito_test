@@ -9,6 +9,9 @@ class ProductRemoteSource @Inject constructor(private val api: ProductListApi) {
 
     suspend fun getRemoteData(): RemoteData = api.getRemoteData()
 
-    suspend fun getRemoteDataByCategory(category: String): RemoteData =
-        api.getRemoteDataByCategory(category = category)
+    suspend fun getRemoteDataByCategory(titleCategory: String, queryFilter: String): RemoteData =
+        api.getRemoteDataByCategory(
+            category = titleCategory,
+            price = queryFilter,
+            )
 }

@@ -8,53 +8,51 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import ru.alexandrorlov.avito_test.R
+import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
+import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextField
+import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextFieldInvert
+import ru.alexandrorlov.avito_test.ui.theme.CategoryText
+import ru.alexandrorlov.avito_test.ui.theme.CategoryTextInvert
+import ru.alexandrorlov.avito_test.ui.theme.RedBorder
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 
 @Composable
 internal fun FilterView(
     modifier: Modifier = Modifier,
-    title: String,
+    filter: Filter,
     onSelected: () -> Unit,
 ) {
-    var selected by rememberSaveable { mutableStateOf(false) }
+    val isSelected: Boolean = filter.isSelected
 
     FilterChip(
-        onClick = {
-            selected = selected.not()
-            if (selected) {
-                onSelected()
-            }
-        },
+        onClick = { onSelected() },
         label = {
             Text(
-                text = title.uppercase(),
+                text = stringResource(id = filter.idTitle).uppercase(),
                 style = MaterialTheme.TypographyAvitoTest.textFilter,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
             )
         },
         modifier = modifier,
-        selected = selected,
+        selected = isSelected,
         enabled = true,
         border = BorderStroke(
             width = dimensionResource(id = R.dimen.border_thickness_category),
-            color = Color.Black,
+            color = if (isSelected) RedBorder else Color.Unspecified,
         ),
         colors = FilterChipDefaults.filterChipColors(
-            containerColor = Color.White,
-            selectedContainerColor = Color.Black,
-            labelColor = Color.Black,
-            selectedLabelColor = Color.White,
+            containerColor = BackgroundTextField,
+            selectedContainerColor = BackgroundTextFieldInvert,
+            labelColor = CategoryText,
+            selectedLabelColor = CategoryTextInvert,
         ),
     )
 
@@ -67,7 +65,11 @@ internal fun FilterView(
 @Composable
 private fun FilterViewPreview() {
     FilterView(
-        title = "price \u2191",
+        filter = Filter(
+            idTitle = R.string.price_up_filter,
+            query = "",
+        )
+        ,
         onSelected = { },
     )
 }

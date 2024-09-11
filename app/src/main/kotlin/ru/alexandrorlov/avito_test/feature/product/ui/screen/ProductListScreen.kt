@@ -19,11 +19,12 @@ import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.SnackbarAvitoTest
 import ru.alexandrorlov.avito_test.di.daggerViewModel
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
-import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
+import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
 import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductUI
 import ru.alexandrorlov.avito_test.feature.product.ui.screen.component.ContentScreen
 import ru.alexandrorlov.avito_test.feature.product.ui.screen.component.HeaderScreen
-import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.HeaderViewModel
+import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.CategoryViewModel
+import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.FilterViewModel
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewModel
 
 @Composable
@@ -31,7 +32,8 @@ fun ProductListScreen(
     navigateToProductDetailScreen: (String) -> Unit,
 ) {
     ProductListScreen(
-        headerViewModel = daggerViewModel(),
+        categoryViewModel = daggerViewModel(),
+        filterViewModel = daggerViewModel(),
         productListViewModel = daggerViewModel(),
         navigateToProductDetailScreen = navigateToProductDetailScreen,
     )
@@ -39,7 +41,8 @@ fun ProductListScreen(
 
 @Composable
 private fun ProductListScreen(
-    headerViewModel: HeaderViewModel,
+    categoryViewModel: CategoryViewModel,
+    filterViewModel: FilterViewModel,
     productListViewModel: ProductListViewModel,
     navigateToProductDetailScreen: (String) -> Unit,
 ) {
@@ -58,8 +61,11 @@ private fun ProductListScreen(
         }
     }
 
-    val stateHeaderScreen: ScreenState<List<Category>> =
-        headerViewModel.state.collectAsState().value
+    val stateCategoryComponent: ScreenState<List<Category>> =
+        categoryViewModel.state.collectAsState().value
+
+    val stateFilterComponent: ScreenState<List<Filter>> =
+        filterViewModel.state.collectAsState().value
 
     val stateContentScreen: ScreenState<List<ProductUI>> =
         productListViewModel.state.collectAsState().value
@@ -82,13 +88,15 @@ private fun ProductListScreen(
             HeaderScreen(
                 modifier = Modifier
                     .weight(1f),
-                state = stateHeaderScreen,
+                stateCategory = stateCategoryComponent,
+                stateFilter = stateFilterComponent,
                 onSelectedCategory = { category: Category ->
-                    headerViewModel.onSelectedCategory.tryEmit(category.id)
+                    categoryViewModel.onSelectedCategory.tryEmit(category.id)
                     productListViewModel.onSelectedCategory.tryEmit(category)
                 },
-                onSelectedFilter = { filter: Filter ->
-                    productListViewModel.onSelectedFilter.tryEmit((filter))
+                onSelectedFilter = { filter : Filter ->
+                    filterViewModel.onSelectedFilter.tryEmit(filter.idTitle)
+                    productListViewModel.onSelectedFilter.tryEmit(filter)
                 }
             )
 
