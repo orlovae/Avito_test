@@ -9,14 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-internal fun ProductDetailScreen() {
+internal fun ProductDetailScreen(
+    idProduct: String,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "ProductDetailScreen"
+            text = "ProductDetailScreen ID Product = $idProduct"
         )
     }
 

@@ -1,10 +1,5 @@
 package ru.alexandrorlov.avito_test.navigation
 
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-import ru.alexandrorlov.avito_test.utils.Constant.ID_ARG_NAME
-
 sealed class Screen {
     protected abstract val route: String
     abstract fun route(): String
@@ -33,20 +28,14 @@ sealed class Screen {
     data object ProductDetail : Screen() {
 
         override val route: String = "productDetail"
-        private const val idItem = ID_ARG_NAME
 
-        override fun route(): String = "$route/{$idItem}"
+        override fun route(): String = "$route/{$ID_ARG_NAME}"
 
-        fun createRouteWithArgs(id: Long): String = "$route/$id"
+        fun createRouteWithArgs(idProduct: String): String = "$route/{$idProduct}"
 
-        fun arguments(): List<NamedNavArgument> {
-            return listOf(
-                navArgument(idItem) { type = NavType.StringType }
-            )
-        }
     }
 
     companion object Constant {
-        const val idItem = ID_ARG_NAME
+        const val ID_ARG_NAME = "idProduct"
     }
 }

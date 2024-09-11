@@ -1,6 +1,8 @@
 package ru.alexandrorlov.avito_test.navigation
 
+import android.os.Bundle
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,9 +27,7 @@ fun NavGraph(
     ) {
         composable(
             route = Screen.Registration.route(),
-        ) { navBackStackEntry ->
-            navBackStackEntry.destination
-
+        ) {
             Inject(
                 viewModelFactory = App.registrationComponent.getViewModelFactory()
             ) {
@@ -43,9 +43,7 @@ fun NavGraph(
 
         composable(
             route = Screen.Auth.route(),
-        ) { navBackStackEntry ->
-            navBackStackEntry.destination
-
+        ) {
             Inject(
                 viewModelFactory = App.authComponent.getViewModelFactory()
             ) {
@@ -61,16 +59,15 @@ fun NavGraph(
 
         composable(
             route = Screen.ProductList.route(),
-//            arguments = Screen.ProductDetail.arguments()
-        ) { navBackStackEntry ->
-            navBackStackEntry.destination
-
+        ) {
             Inject(
                 viewModelFactory = App.productListComponent.getViewModelFactory()
             ) {
                 ProductListScreen(
-                    navigateToProductDetailScreen = {
-
+                    navigateToProductDetailScreen = { idProduct: String ->
+                        navController.navigate(
+                            Screen.ProductDetail.createRouteWithArgs(idProduct = idProduct)
+                        )
                     },
                 )
             }
@@ -78,14 +75,14 @@ fun NavGraph(
 
         composable(
             route = Screen.ProductDetail.route(),
-            arguments = listOf(navArgument(Screen.idItem) { type = NavType.LongType })
-        ) {
+            arguments = listOf(navArgument(Screen.ID_ARG_NAME) { type = NavType.StringType }),
+        ) { navBackStackEntry: NavBackStackEntry ->
 
-            val arguments = requireNotNull(it.arguments)
-            val id = arguments.getLong(Screen.idItem, -1L)
+            val arguments: Bundle = requireNotNull(navBackStackEntry.arguments)
+            val idProduct = arguments.getString(Screen.ID_ARG_NAME, "")
 
             ProductDetailScreen(
-
+                idProduct = idProduct,
             )
         }
     }
