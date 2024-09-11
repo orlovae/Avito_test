@@ -12,10 +12,6 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import ru.alexandrorlov.avito_test.R
+import ru.alexandrorlov.avito_test.feature.product.data.models.Category
 import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextField
 import ru.alexandrorlov.avito_test.ui.theme.BackgroundTextFieldInvert
 import ru.alexandrorlov.avito_test.ui.theme.CategoryText
@@ -34,25 +31,19 @@ import ru.alexandrorlov.avito_test.ui.theme.RedBorder
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 
 @Composable
-internal fun Category(
-    title: String,
-    urlPhoto: String,
+internal fun CategoryView(
+    category: Category,
     onSelectedCategory: () -> Unit,
 ) {
-    var selected: Boolean by rememberSaveable { mutableStateOf(false) }
+    val isSelected: Boolean = category.isSelected
 
-    val containerColor: Color = if (selected) BackgroundTextFieldInvert else BackgroundTextField
-    val contentColor: Color = if (selected) CategoryTextInvert else CategoryText
+    val containerColor: Color = if (isSelected) BackgroundTextFieldInvert else BackgroundTextField
+    val contentColor: Color = if (isSelected) CategoryTextInvert else CategoryText
 
     Card(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_card_category)))
-            .clickable {
-                selected = selected.not()
-                if (selected) {
-                    onSelectedCategory()
-                }
-            },
+            .clickable { onSelectedCategory() },
         colors = CardColors(
             containerColor = containerColor,
             contentColor = contentColor,
@@ -61,7 +52,7 @@ internal fun Category(
         ),
         border = BorderStroke(
             width = dimensionResource(R.dimen.border_thickness_text_field),
-            color = if (selected) RedBorder else Color.Unspecified,
+            color = if (isSelected) RedBorder else Color.Unspecified,
         ),
     ) {
         Column(
@@ -75,16 +66,16 @@ internal fun Category(
                         horizontal = dimensionResource(id = R.dimen.medium_padding),
                         vertical = dimensionResource(id = R.dimen.x_x_small_padding),
                     ),
-                text = title,
+                text = category.title,
                 style = MaterialTheme.TypographyAvitoTest.textCategory,
             )
 
             AsyncImage(
-                model = urlPhoto,
+                model = category.urlPhoto,
                 modifier = Modifier
                     .fillMaxWidth(),
                 error = painterResource(id = R.drawable.ic_launcher_error),
-                contentDescription = title,
+                contentDescription = category.title,
                 contentScale = ContentScale.FillWidth,
             )
         }
@@ -93,10 +84,28 @@ internal fun Category(
 
 @Preview
 @Composable
-private fun CategoryPreview() {
-    Category(
-        title = "Одежда",
-        urlPhoto = "https://avatars.mds.yandex.net/i?id=f239fd141d2fa1a8ebd4e6d845d7136115ff9198f84a1213-12666658-images-thumbs&n=13",
+private fun CategoryViewUnSelectedPreview() {
+    CategoryView(
+        category = Category(
+            id = 0,
+            title = "Одежда",
+            urlPhoto = "https://avatars.mds.yandex.net/i?id=f239fd141d2fa1a8ebd4e6d845d7136115ff9198f84a1213-12666658-images-thumbs&n=13",
+            isSelected = false,
+        ),
+        onSelectedCategory = {  }
+    )
+}
+
+@Preview
+@Composable
+private fun CategoryViewSelectedPreview() {
+    CategoryView(
+        category = Category(
+            id = 0,
+            title = "Одежда",
+            urlPhoto = "https://avatars.mds.yandex.net/i?id=f239fd141d2fa1a8ebd4e6d845d7136115ff9198f84a1213-12666658-images-thumbs&n=13",
+            isSelected = true,
+        ),
         onSelectedCategory = {  }
     )
 }

@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
@@ -26,18 +28,21 @@ class HeaderViewModel @Inject constructor(
         MutableSharedFlow(extraBufferCapacity = 1)
     val sideEffect: SharedFlow<SideEffect> = _sideEffect
 
+    val onSelectedCategory: MutableSharedFlow<Int> = MutableSharedFlow(extraBufferCapacity = 1)
+
     init {
         getAllCategory()
+        observerCategory()
     }
 
     private fun getAllCategory() {
         viewModelScope.launch {
             kotlin.runCatching {
-                val categoryList: List<Category> = repository.getAllCategory()
-
-                _state.emit(ScreenState.Content(categoryList))
+                repository.getAllCategory()
+                    .collect { categoryList: List<Category> ->
+                        _state.emit(ScreenState.Content(categoryList))
+                    }
             }.getOrElse {
-//                _state.emit(ScreenState.Error(it.message ?: "ERROR"))
                 _sideEffect.emit(
                     SideEffect.SnackBar(
                         message = it.message?.getErrorMessage() ?: "Unknown Error"
@@ -45,5 +50,13 @@ class HeaderViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun observerCategory() {
+        onSelectedCategory
+            .onEach { id: Int ->
+                repository.updateSelectedCategory(idCategory = id)
+            }
+            .launchIn(viewModelScope)
     }
 }

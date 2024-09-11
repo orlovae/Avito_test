@@ -28,7 +28,7 @@ import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
 internal fun HeaderScreen(
     modifier: Modifier,
     state: ScreenState<List<Category>>,
-    onSelectedCategory: (String) -> Unit,
+    onSelectedCategory: (Category) -> Unit,
     onSelectedFilter: (Filter) -> Unit,
 ) {
     when (state) {
@@ -46,11 +46,11 @@ internal fun HeaderScreen(
                     horizontalItemSpacing = dimensionResource(id = R.dimen.small_padding),
                 ) {
                     items(state.content) { category: Category ->
-                        Category(
-                            title = category.title,
-                            urlPhoto = category.urlPhoto,
+
+                        CategoryView(
+                            category = category,
                             onSelectedCategory = {
-                                onSelectedCategory(category.title)
+                                onSelectedCategory(category)
                             },
                         )
                     }
@@ -63,7 +63,7 @@ internal fun HeaderScreen(
                         .weight(1f),
                 ) {
                     items(fakeFilter) { filter: Filter ->
-                        Filter(
+                        FilterView(
                             title = stringResource(id = filter.titleId),
                             onSelected = {
                                 onSelectedFilter(filter)

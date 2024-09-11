@@ -21,7 +21,7 @@ import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 
 @Composable
-internal fun Filter(
+internal fun FilterView(
     modifier: Modifier = Modifier,
     title: String,
     onSelected: () -> Unit,
@@ -65,8 +65,8 @@ internal fun Filter(
 
 @Preview
 @Composable
-private fun FilterPreview() {
-    Filter(
+private fun FilterViewPreview() {
+    FilterView(
         title = "price \u2191",
         onSelected = { },
     )

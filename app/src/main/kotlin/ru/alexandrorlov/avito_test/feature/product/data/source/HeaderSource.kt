@@ -1,33 +1,36 @@
 package ru.alexandrorlov.avito_test.feature.product.data.source
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
 import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductScope
+import ru.alexandrorlov.avito_test.feature.product.ui.fakeListCategory
 import javax.inject.Inject
 
 @ProductScope
 class HeaderSource @Inject constructor() {
+    private val _listCategory: MutableStateFlow<List<Category>> =
+        MutableStateFlow(value = fakeListCategory)
+    private val listCategory: StateFlow<List<Category>> = _listCategory.asStateFlow()
 
-    fun getRemoteCategory(): List<Category> =
-        listOf(
-            Category(
-                title = "chair",
-                urlPhoto = "https://avatars.mds.yandex.net/i?id=a98955ccaf6b5f50486d070f954b0944be1e2459ae12e3b3-12406511-images-thumbs&n=13",
-            ),
-            Category(
-                title = "lamp",
-                urlPhoto = "https://avatars.mds.yandex.net/i?id=b9727c955aa062a2fd7b519659107f6db821b361-9222921-images-thumbs&n=13",
-            ),
-            Category(
-                title = "clothing",
-                urlPhoto = "https://avatars.mds.yandex.net/i?id=f239fd141d2fa1a8ebd4e6d845d7136115ff9198f84a1213-12666658-images-thumbs&n=13",
-            ),
-            Category(
-                title = "shorts",
-                urlPhoto = "https://avatars.mds.yandex.net/i?id=2df2d2cec8bc169d3c49327efc13f838fad7c54a-8497448-images-thumbs&n=13",
-            ),
-            Category(
-                title = "footwear",
-                urlPhoto = "https://avatars.mds.yandex.net/i?id=85845f5402c628f1782a72254753d45e8aba58ea-4591921-images-thumbs&n=13",
-            ),
-        )
+    fun getRemoteCategory(): Flow<List<Category>> = listCategory
+
+    suspend fun updateSelectedCategory(idCategory: Int) {
+        val changeListCategory: MutableList<Category> = mutableListOf()
+
+        _listCategory.value.forEach { it: Category ->
+            val category: Category = if (idCategory == it.id) {
+                it.copy(isSelected = it.isSelected.not())
+            } else {
+                it.copy(isSelected = false)
+            }
+
+
+            changeListCategory.add(category)
+        }
+
+        _listCategory.emit(value = changeListCategory.toList())
+    }
 }

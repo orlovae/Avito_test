@@ -65,8 +65,8 @@ class ProductListViewModel @Inject constructor(
             .onEach {
                 _state.emit(ScreenState.Loading)
             }
-            .onEach { nameCategory: String ->
-                getProductListFilerByCategory(category = nameCategory)
+            .onEach { title: String ->
+                getProductListFilerByCategory(title = title)
             }
             .launchIn(viewModelScope)
 
@@ -84,10 +84,10 @@ class ProductListViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
 
-    private suspend fun getProductListFilerByCategory(category: String) =
+    private suspend fun getProductListFilerByCategory(title: String) =
             kotlin.runCatching {
                 val productList: List<ProductUI> =
-                    repository.getProductListByCategory(category = category)
+                    repository.getProductListByCategory(title = title)
                         .map { product: Product ->
                             product.toProductUI()
                         }
