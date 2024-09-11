@@ -17,12 +17,11 @@ fun LoadingScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
-            modifier = modifier,
             color = CircularProgress,
             strokeWidth = dimensionResource(R.dimen.thickness_indicator_loading),
             strokeCap = StrokeCap.Round,

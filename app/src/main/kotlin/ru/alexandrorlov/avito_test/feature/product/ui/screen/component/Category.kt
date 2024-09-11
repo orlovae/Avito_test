@@ -39,7 +39,7 @@ internal fun Category(
     urlPhoto: String,
     onSelectedCategory: () -> Unit,
 ) {
-    var selected by rememberSaveable { mutableStateOf(false) }
+    var selected: Boolean by rememberSaveable { mutableStateOf(false) }
 
     val containerColor: Color = if (selected) BackgroundTextFieldInvert else BackgroundTextField
     val contentColor: Color = if (selected) CategoryTextInvert else CategoryText

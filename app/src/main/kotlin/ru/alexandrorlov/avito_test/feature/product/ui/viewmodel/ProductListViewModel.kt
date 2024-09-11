@@ -16,7 +16,6 @@ import ru.alexandrorlov.avito_test.feature.product.domain.models.Product
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.ProductListRepository
 import ru.alexandrorlov.avito_test.feature.product.ui.mapper.toProductUI
 import ru.alexandrorlov.avito_test.feature.product.ui.models.Filter
-import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductListEvent
 import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductUI
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
@@ -27,11 +26,6 @@ class ProductListViewModel @Inject constructor(
     private val _state: MutableStateFlow<ScreenState<List<ProductUI>>> =
         MutableStateFlow(ScreenState.Loading)
     val state: StateFlow<ScreenState<List<ProductUI>>> = _state.asStateFlow()
-
-    private val _event: MutableStateFlow<ProductListEvent> = MutableStateFlow(
-        ProductListEvent.Init
-    )
-    val event: StateFlow<ProductListEvent> = _event.asStateFlow()
 
     private val _sideEffect: MutableSharedFlow<SideEffect> =
         MutableSharedFlow(extraBufferCapacity = 1)
@@ -55,9 +49,8 @@ class ProductListViewModel @Inject constructor(
                     .map { product: Product ->
                         product.toProductUI()
                     }
-                _state.emit(ScreenState.Content(productList))
+                _state.emit(ScreenState.Content(content = productList))
             }.getOrElse {
-//                _state.emit(ScreenState.Error(it.message ?: "ERROR"))
                 _sideEffect.emit(
                     SideEffect.SnackBar(
                         message = it.message?.getErrorMessage() ?: "Unknown Error"
@@ -98,9 +91,8 @@ class ProductListViewModel @Inject constructor(
                         .map { product: Product ->
                             product.toProductUI()
                         }
-                _state.emit(ScreenState.Content(productList))
+                _state.emit(ScreenState.Content(content = productList))
             }.getOrElse {
-//                _state.emit(ScreenState.Error(it.message ?: "ERROR"))
                 _sideEffect.emit(
                     SideEffect.SnackBar(
                         message = it.message?.getErrorMessage() ?: "Unknown Error"
