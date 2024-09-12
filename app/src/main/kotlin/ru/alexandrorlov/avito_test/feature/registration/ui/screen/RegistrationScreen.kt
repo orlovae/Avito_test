@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.model.state.Email
@@ -40,32 +41,36 @@ import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationVi
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.confirmpassword.ConfirmPasswordInputTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.name.NameUserTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.RegistrationViewModel
+import ru.alexandrorlov.avito_test.navigation.Screen
 import ru.alexandrorlov.avito_test.utils.StringValue
 
 @Composable
 fun RegistrationScreen(
-    navigateToAuthScreen: () -> Unit,
+    navController: NavHostController,
 ) {
     RegistrationScreen(
         viewModel = daggerViewModel(),
-        navigateToAuthScreen = navigateToAuthScreen,
+        navController = navController,
     )
 }
 
 @Composable
 private fun RegistrationScreen(
     viewModel: RegistrationViewModel,
-    navigateToAuthScreen: () -> Unit,
+    navController: NavHostController,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
 
     val state: RegistrationViewState = viewModel.state.collectAsState().value
 
-    val event: RegistrationEvent = viewModel.event.collectAsState().value
-    when (event) {
-        RegistrationEvent.Init -> {}
-        RegistrationEvent.NavigateToAuthScreen -> {
-            navigateToAuthScreen()
+    LaunchedEffect(key1 = Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                RegistrationEvent.Init -> {}
+                RegistrationEvent.NavigateToAuthScreen -> {
+                    navController.navigate(Screen.Auth.route())
+                }
+            }
         }
     }
 

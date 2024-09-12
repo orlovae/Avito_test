@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.navigation.NavHostController
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.common.ui.AvitoTestButton
@@ -33,31 +34,37 @@ import ru.alexandrorlov.avito_test.di.daggerViewModel
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthEvent
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthViewState
 import ru.alexandrorlov.avito_test.feature.authentication.ui.viewmodel.AuthViewModel
+import ru.alexandrorlov.avito_test.navigation.Screen
 
 @Composable
 fun AuthScreen(
-    navigateToScreen: () -> Unit,
+    navController: NavHostController,
 ) {
     AuthScreen(
         viewModel = daggerViewModel(),
-        navigateToScreen = navigateToScreen,
+        navController = navController,
         )
 }
 
 @Composable
 private fun AuthScreen(
     viewModel: AuthViewModel,
-    navigateToScreen: () -> Unit,
+    navController: NavHostController,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
 
     val state: AuthViewState = viewModel.state.collectAsState().value
 
-    val event: AuthEvent = viewModel.event.collectAsState().value
-    when (event) {
-        AuthEvent.Init -> {}
-        AuthEvent.NavigateToProductListScreen -> {
-            navigateToScreen()
+    LaunchedEffect(key1 = Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                AuthEvent.Init -> {}
+                AuthEvent.NavigateToProductListScreen -> {
+                    navController.navigate(
+                        Screen.ProductList.route()
+                    )
+                }
+            }
         }
     }
 

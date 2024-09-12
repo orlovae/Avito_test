@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.navigation.NavHostController
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
@@ -28,16 +29,17 @@ import ru.alexandrorlov.avito_test.feature.product.ui.screen.component.HeaderScr
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.CategoryViewModel
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.FilterViewModel
 import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewModel
+import ru.alexandrorlov.avito_test.navigation.Screen
 
 @Composable
 fun ProductListScreen(
-    navigateToProductDetailScreen: (String) -> Unit,
+    navController: NavHostController,
 ) {
     ProductListScreen(
         categoryViewModel = daggerViewModel(),
         filterViewModel = daggerViewModel(),
         productListViewModel = daggerViewModel(),
-        navigateToProductDetailScreen = navigateToProductDetailScreen,
+        navController = navController,
     )
 }
 
@@ -46,7 +48,7 @@ private fun ProductListScreen(
     categoryViewModel: CategoryViewModel,
     filterViewModel: FilterViewModel,
     productListViewModel: ProductListViewModel,
-    navigateToProductDetailScreen: (String) -> Unit,
+    navController: NavHostController,
 ) {
     val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 
@@ -108,7 +110,11 @@ private fun ProductListScreen(
                 modifier = Modifier
                     .weight(3f),
                 state = stateContentScreen,
-                navigateToProductDetailScreen = navigateToProductDetailScreen,
+                navigateToProductDetailScreen = { idProduct: String ->
+                    navController.navigate(Screen.ProductDetail.createRouteWithArgs(
+                        idProduct = idProduct)
+                    )
+                },
             )
         }
     }

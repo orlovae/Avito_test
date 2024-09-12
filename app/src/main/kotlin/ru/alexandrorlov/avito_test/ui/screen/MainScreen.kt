@@ -27,7 +27,6 @@ internal fun MainScreen(
         ) {
             NavGraph(
                 navController = navController,
-//                startDestination = "productDetail/6500cb79202e8fd9c163a7fb",
                 startDestination = Screen.Registration.route(),
             )
         }
