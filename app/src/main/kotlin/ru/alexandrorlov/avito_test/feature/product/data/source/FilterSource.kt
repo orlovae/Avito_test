@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
-import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductScope
+import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductListScope
 import ru.alexandrorlov.avito_test.feature.product.ui.fakeListFilter
 import javax.inject.Inject
 
-@ProductScope
+@ProductListScope
 class FilterSource @Inject constructor() {
     private val _listFilter: MutableStateFlow<List<Filter>> =
         MutableStateFlow(value = fakeListFilter)

@@ -21,6 +21,7 @@ import ru.alexandrorlov.avito_test.common.model.user.UserAuth
 import ru.alexandrorlov.avito_test.feature.authentication.domain.repository.AuthRepository
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthEvent
 import ru.alexandrorlov.avito_test.feature.authentication.ui.models.AuthViewState
+import ru.alexandrorlov.avito_test.utils.StringValue
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
@@ -102,7 +103,7 @@ class AuthViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
 
-    private fun observeOnClickButton() {
+    private fun observeOnClickButton() =
         onClickButton
             .onEach {
                 val user: UserAuth = UserAuth(
@@ -121,7 +122,7 @@ class AuthViewModel @Inject constructor(
                     is Either.Fail -> {
                         _sideEffect.emit(
                             SideEffect.SnackBar(
-                                message = either.value.getErrorMessage()
+                                message = StringValue.DynamicString(either.value.getErrorMessage())
                             )
                         )
                     }
@@ -129,5 +130,4 @@ class AuthViewModel @Inject constructor(
 
             }
             .launchIn(viewModelScope)
-    }
 }

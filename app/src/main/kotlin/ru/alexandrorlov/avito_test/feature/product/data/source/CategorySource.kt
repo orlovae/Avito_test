@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
-import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductScope
+import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductListScope
 import ru.alexandrorlov.avito_test.feature.product.ui.fakeListCategory
 import javax.inject.Inject
 
-@ProductScope
+@ProductListScope
 class CategorySource @Inject constructor() {
     private val _listCategory: MutableStateFlow<List<Category>> =
         MutableStateFlow(value = fakeListCategory)

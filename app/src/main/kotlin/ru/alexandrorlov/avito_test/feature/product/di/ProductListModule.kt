@@ -16,7 +16,7 @@ import ru.alexandrorlov.avito_test.feature.product.ui.viewmodel.ProductListViewM
 @Module(includes = [
     ProductListRepositoryBindModule::class,
 ])
-class ProductModule {
+class ProductListModule {
 
     @[IntoMap Provides ViewModelKey(FilterViewModel::class)]
     fun provideFilterViewModel(

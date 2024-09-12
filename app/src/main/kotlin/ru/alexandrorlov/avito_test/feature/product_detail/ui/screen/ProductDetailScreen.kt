@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.product_detail.ui.screen
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -37,13 +39,15 @@ internal fun ProductDetailScreen(
 
     val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 
+    val context: Context = LocalContext.current
+
     LaunchedEffect(key1 = Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
 
                 is SideEffect.SnackBar -> {
                     snackbarHostState.showSnackbar(
-                        message = sideEffect.message,
+                        message = sideEffect.message.asString(context = context),
                     )
                 }
             }
@@ -71,9 +75,10 @@ internal fun ProductDetailScreen(
             Loading -> { LoadingScreen() }
 
             is Content -> {
+
                 ContentScreen(
                     product = data.content,
-                    onClickButtonBuy = { },
+                    onClickButtonBuy = { viewModel.onClickButton.tryEmit("") },
                 )
             }
 

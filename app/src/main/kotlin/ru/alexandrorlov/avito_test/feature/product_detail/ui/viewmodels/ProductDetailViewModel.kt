@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.feature.product_detail.domain.repository.ProductDetailRepository
 import ru.alexandrorlov.avito_test.feature.product_detail.ui.mapper.toProductDetailUI
 import ru.alexandrorlov.avito_test.feature.product_detail.ui.models.ProductDetailUI
+import ru.alexandrorlov.avito_test.utils.StringValue
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
@@ -31,8 +33,11 @@ class ProductDetailViewModel @Inject constructor(
 
     val idProductDetail: MutableStateFlow<String> = MutableStateFlow("")
 
+    val onClickButton: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
+
     init {
         getProductDetail()
+        observeOnClickButton()
     }
 
     private fun getProductDetail() =
@@ -49,10 +54,20 @@ class ProductDetailViewModel @Inject constructor(
             .catch {
                 _sideEffect.emit(
                     SideEffect.SnackBar(
-                        message = it.message?.getErrorMessage() ?: "Unknown Error"
+                        message = StringValue.DynamicString(it.message?.getErrorMessage() ?: "Unknown Error")
                     )
                 )
             }
             .launchIn(viewModelScope)
 
+    private fun observeOnClickButton() =
+        onClickButton
+            .onEach {
+                _sideEffect.emit(
+                    SideEffect.SnackBar(
+                        message = StringValue.StringResource(resId = R.string.message_product_detail_list)
+                    )
+                )
+            }
+            .launchIn(viewModelScope)
 }

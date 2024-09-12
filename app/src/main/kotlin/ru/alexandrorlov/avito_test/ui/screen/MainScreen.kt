@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import ru.alexandrorlov.avito_test.navigation.BottomNavigationBar
 import ru.alexandrorlov.avito_test.navigation.NavGraph
+import ru.alexandrorlov.avito_test.navigation.Screen
 
 @Composable
 internal fun MainScreen(
@@ -26,8 +27,8 @@ internal fun MainScreen(
         ) {
             NavGraph(
                 navController = navController,
-                startDestination = "productDetail/64d7e740e03347cdf0b560d5",
-//                startDestination = Screen.Registration.route(),
+//                startDestination = "productDetail/6500cb79202e8fd9c163a7fb",
+                startDestination = Screen.Registration.route(),
             )
         }
     }

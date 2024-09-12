@@ -43,4 +43,6 @@
     <string name="specification_product_detail">Характеристики</string>
     <string name="brand_product_detail">Бренд</string>
     <string name="colon_sing">:</string>
+
+    <string name="message_product_detail_list">В тестовой версии ничего нельзя купить.</string>
 </resources>

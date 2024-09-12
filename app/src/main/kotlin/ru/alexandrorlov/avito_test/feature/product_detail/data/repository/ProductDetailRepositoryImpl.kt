@@ -1,6 +1,5 @@
 package ru.alexandrorlov.avito_test.feature.product_detail.data.repository
 
-import android.util.Log
 import ru.alexandrorlov.avito_test.feature.product_detail.data.models.RemoteData
 import ru.alexandrorlov.avito_test.feature.product_detail.data.source.ProductDetailRemoteSource
 import ru.alexandrorlov.avito_test.feature.product_detail.di.annotation.ProductDetailScope
@@ -16,9 +15,6 @@ class ProductDetailRepositoryImpl @Inject constructor(
 
     override suspend fun getProductDetail(idProduct: String): ProductDetail {
         val remoteData: RemoteData = remoteSource.getRemoteData(idProduct = idProduct)
-
-        Log.d("OAE", "ProductDetailRepository idProduct = $idProduct")
-        Log.d("OAE", "ProductDetailRepository remoteData = ${remoteData.product}")
 
         val productDetail: ProductDetail =
             remoteData.product?.toProductDetail() ?: ProductDetail.empty()

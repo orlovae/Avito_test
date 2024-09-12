@@ -6,7 +6,6 @@ import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.compositionLocalOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import ru.alexandrorlov.avito_test.common.di.MultiViewModelFactory
 
 @Composable
 fun Inject(

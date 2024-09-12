@@ -4,11 +4,11 @@ import androidx.annotation.StringRes
 import kotlinx.coroutines.flow.Flow
 import ru.alexandrorlov.avito_test.feature.product.data.models.Filter
 import ru.alexandrorlov.avito_test.feature.product.data.source.FilterSource
-import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductScope
+import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductListScope
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.FilterRepository
 import javax.inject.Inject
 
-@ProductScope
+@ProductListScope
 class FilterRepositoryImpl @Inject constructor(
     private val localSource: FilterSource,
 ) : FilterRepository {

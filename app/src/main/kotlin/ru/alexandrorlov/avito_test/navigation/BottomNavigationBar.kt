@@ -43,9 +43,7 @@ fun BottomNavigationBar(
                 IconButton(
                     modifier = Modifier
                         .fillMaxHeight(),
-                    onClick = {
-                    TODO("Здесь нужно будет навигироваться по меню. Но для этого надо добавлять экраны в граф")
-                    },
+                    onClick = { },
                 ) {
                     Column(
                         modifier = Modifier

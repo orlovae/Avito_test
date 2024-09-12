@@ -14,6 +14,7 @@ import ru.alexandrorlov.avito_test.common.model.ScreenState
 import ru.alexandrorlov.avito_test.common.model.SideEffect
 import ru.alexandrorlov.avito_test.feature.product.data.models.Category
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.CategoryRepository
+import ru.alexandrorlov.avito_test.utils.StringValue
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
@@ -45,7 +46,9 @@ class CategoryViewModel @Inject constructor(
             }.getOrElse {
                 _sideEffect.emit(
                     SideEffect.SnackBar(
-                        message = it.message?.getErrorMessage() ?: "Unknown Error"
+                        message = StringValue.DynamicString(
+                            value = it.message?.getErrorMessage() ?: "Unknown Error"
+                        )
                     )
                 )
             }

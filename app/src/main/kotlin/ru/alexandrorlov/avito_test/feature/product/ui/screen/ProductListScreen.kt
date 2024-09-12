@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.product.ui.screen
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import ru.alexandrorlov.avito_test.R
 import ru.alexandrorlov.avito_test.common.model.ScreenState
@@ -48,13 +50,15 @@ private fun ProductListScreen(
 ) {
     val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 
+    val context: Context = LocalContext.current
+
     LaunchedEffect(key1 = Unit) {
         productListViewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
 
                 is SideEffect.SnackBar -> {
                     snackbarHostState.showSnackbar(
-                        message = sideEffect.message,
+                        message = sideEffect.message.asString(context = context),
                     )
                 }
             }

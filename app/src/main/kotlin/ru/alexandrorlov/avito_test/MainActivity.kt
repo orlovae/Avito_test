@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
             val navController: NavHostController = rememberNavController()
 
             Avito_testTheme {
-
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                     ) {

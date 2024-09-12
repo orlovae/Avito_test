@@ -20,7 +20,6 @@ import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.Registrat
 
 @Component(
     modules = [
-        AppModule::class,
         NetworkModule::class,
         DatabaseModule::class,
         CommonModule::class,

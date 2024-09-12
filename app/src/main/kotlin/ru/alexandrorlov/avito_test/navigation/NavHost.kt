@@ -1,6 +1,7 @@
 package ru.alexandrorlov.avito_test.navigation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
@@ -31,6 +32,7 @@ fun NavGraph(
             Inject(
                 viewModelFactory = App.registrationComponent.getViewModelFactory()
             ) {
+                Log.d("OAE", "start Inject Registration")
                 RegistrationScreen(
                     navigateToAuthScreen = {
                         navController.navigate(
@@ -47,6 +49,7 @@ fun NavGraph(
             Inject(
                 viewModelFactory = App.authComponent.getViewModelFactory()
             ) {
+                Log.d("OAE", "start Inject Auth")
                 AuthScreen(
                     navigateToScreen = {
                         navController.navigate(
@@ -63,6 +66,7 @@ fun NavGraph(
             Inject(
                 viewModelFactory = App.productListComponent.getViewModelFactory()
             ) {
+                Log.d("OAE", "start Inject ProductList")
                 ProductListScreen(
                     navigateToProductDetailScreen = { idProduct: String ->
                         navController.navigate(
@@ -84,6 +88,7 @@ fun NavGraph(
             Inject(
                 viewModelFactory = App.productDetailComponent.getViewModelFactory()
             ) {
+                Log.d("OAE", "start Inject ProductDetail")
                 ProductDetailScreen(
                     idProduct = idProduct,
                     navController = navController,

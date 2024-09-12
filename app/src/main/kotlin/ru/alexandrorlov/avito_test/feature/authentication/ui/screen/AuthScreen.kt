@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.authentication.ui.screen
 
+import android.content.Context
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -61,13 +63,15 @@ private fun AuthScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val context: Context = LocalContext.current
+
     LaunchedEffect(key1 = Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
 
                 is SideEffect.SnackBar -> {
                     snackbarHostState.showSnackbar(
-                        message = sideEffect.message,
+                        message = sideEffect.message.asString(context = context),
                     )
                 }
             }

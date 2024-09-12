@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.registration.ui.screen
 
+import android.content.Context
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -38,6 +40,7 @@ import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationVi
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.confirmpassword.ConfirmPasswordInputTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.screen.component.textfield.name.NameUserTextField
 import ru.alexandrorlov.avito_test.feature.registration.ui.viewmodel.RegistrationViewModel
+import ru.alexandrorlov.avito_test.utils.StringValue
 
 @Composable
 fun RegistrationScreen(
@@ -68,13 +71,15 @@ private fun RegistrationScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val context: Context = LocalContext.current
+
     LaunchedEffect(key1 = Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
 
                 is SideEffect.SnackBar -> {
                     snackbarHostState.showSnackbar(
-                        message = sideEffect.message,
+                        message = sideEffect.message.asString(context = context),
                     )
                 }
             }
@@ -191,12 +196,14 @@ private fun RegistrationScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val context: Context = LocalContext.current
+
     LaunchedEffect(key1 = Unit) {
         when (sideEffect) {
 
             is SideEffect.SnackBar -> {
                 snackbarHostState.showSnackbar(
-                    message = sideEffect.message,
+                    message = sideEffect.message.asString(context = context),
                 )
             }
         }
@@ -309,7 +316,7 @@ private fun PreviewRegistrationScreen() {
             isAllDataNotValid = false
         ),
         event = RegistrationEvent.Init,
-        sideEffect = SideEffect.SnackBar(""),
+        sideEffect = SideEffect.SnackBar(StringValue.DynamicString("")),
         navigateToAuthScreen = { },
     )
 }

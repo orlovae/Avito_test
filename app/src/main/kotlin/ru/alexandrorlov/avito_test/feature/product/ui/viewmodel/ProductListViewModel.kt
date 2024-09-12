@@ -1,5 +1,6 @@
 package ru.alexandrorlov.avito_test.feature.product.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,6 +19,7 @@ import ru.alexandrorlov.avito_test.feature.product.domain.models.Product
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.ProductListRepository
 import ru.alexandrorlov.avito_test.feature.product.ui.mapper.toProductUI
 import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductUI
+import ru.alexandrorlov.avito_test.utils.StringValue
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
@@ -34,7 +36,6 @@ class ProductListViewModel @Inject constructor(
 
     val onSelectedCategory: MutableSharedFlow<Category> = MutableSharedFlow(extraBufferCapacity = 1)
     val onSelectedFilter: MutableSharedFlow<Filter> = MutableSharedFlow(extraBufferCapacity = 1)
-    val onClickProduct: MutableSharedFlow<String> = MutableSharedFlow(extraBufferCapacity = 1)
 
     private val _onSelectedTitleCategory: MutableStateFlow<String> =
         MutableStateFlow("")
@@ -45,7 +46,6 @@ class ProductListViewModel @Inject constructor(
         getAllProduct()
         observeOnSelectedCategory()
         observeOnSelectedFilter()
-        observeOnClickProduct()
     }
 
     private fun getAllProduct() {
@@ -55,11 +55,14 @@ class ProductListViewModel @Inject constructor(
                     .map { product: Product ->
                         product.toProductUI()
                     }
+                                Log.d("OAE", "start ProductListViewModel productList = $productList")
                 _state.emit(ScreenState.Content(content = productList))
             }.getOrElse {
                 _sideEffect.emit(
                     SideEffect.SnackBar(
-                        message = it.message?.getErrorMessage() ?: "Unknown Error"
+                        message = StringValue.DynamicString(
+                            value = it.message?.getErrorMessage() ?: "Unknown Error"
+                        )
                     )
                 )
             }
@@ -97,13 +100,6 @@ class ProductListViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
 
-    private fun observeOnClickProduct() =
-        onClickProduct
-            .onEach { idProduct: String ->
-
-            }
-            .launchIn(viewModelScope)
-
     private suspend fun getProductListByCategory() =
         kotlin.runCatching {
             _state.emit(ScreenState.Loading)
@@ -123,7 +119,9 @@ class ProductListViewModel @Inject constructor(
         }.getOrElse {
             _sideEffect.emit(
                 SideEffect.SnackBar(
-                    message = it.message?.getErrorMessage() ?: "Unknown Error"
+                    message = StringValue.DynamicString(
+                        value = it.message?.getErrorMessage() ?: "Unknown Error"
+                    )
                 )
             )
         }

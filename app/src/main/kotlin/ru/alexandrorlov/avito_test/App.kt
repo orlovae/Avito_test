@@ -5,8 +5,8 @@ import ru.alexandrorlov.avito_test.di.AppComponent
 import ru.alexandrorlov.avito_test.di.DaggerAppComponent
 import ru.alexandrorlov.avito_test.feature.authentication.di.AuthComponent
 import ru.alexandrorlov.avito_test.feature.authentication.di.DaggerAuthComponent
-import ru.alexandrorlov.avito_test.feature.product.di.DaggerProductComponent
-import ru.alexandrorlov.avito_test.feature.product.di.ProductComponent
+import ru.alexandrorlov.avito_test.feature.product.di.DaggerProductListComponent
+import ru.alexandrorlov.avito_test.feature.product.di.ProductListComponent
 import ru.alexandrorlov.avito_test.feature.product_detail.di.DaggerProductDetailComponent
 import ru.alexandrorlov.avito_test.feature.product_detail.di.ProductDetailComponent
 import ru.alexandrorlov.avito_test.feature.registration.di.DaggerRegistrationComponent
@@ -27,7 +27,7 @@ class App : Application() {
             dependencies = appComponent,
         )
 
-        productListComponent = DaggerProductComponent.factory().create(
+        productListComponent = DaggerProductListComponent.factory().create(
             dependencies = appComponent,
         )
 
@@ -40,7 +40,7 @@ class App : Application() {
         private lateinit var appComponent: AppComponent
         lateinit var registrationComponent: RegistrationComponent
         lateinit var authComponent: AuthComponent
-        lateinit var productListComponent: ProductComponent
+        lateinit var productListComponent: ProductListComponent
         lateinit var productDetailComponent: ProductDetailComponent
     }
 }

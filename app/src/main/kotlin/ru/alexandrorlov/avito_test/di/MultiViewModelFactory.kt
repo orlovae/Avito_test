@@ -1,4 +1,4 @@
-package ru.alexandrorlov.avito_test.common.di
+package ru.alexandrorlov.avito_test.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

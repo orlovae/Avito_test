@@ -25,6 +25,7 @@ import ru.alexandrorlov.avito_test.feature.registration.ui.models.ConfirmPasswor
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.Name
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationEvent
 import ru.alexandrorlov.avito_test.feature.registration.ui.models.RegistrationViewState
+import ru.alexandrorlov.avito_test.utils.StringValue
 import ru.alexandrorlov.avito_test.utils.getErrorMessage
 import javax.inject.Inject
 
@@ -147,7 +148,7 @@ class RegistrationViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
 
-    private fun observeOnClickButton() {
+    private fun observeOnClickButton() =
         onClickButton
             .onEach {
                 val user: UserRegistration = UserRegistration(
@@ -168,7 +169,7 @@ class RegistrationViewModel @Inject constructor(
                     is Either.Fail -> {
                         _sideEffect.emit(
                             SideEffect.SnackBar(
-                                message = either.value.getErrorMessage()
+                                message = StringValue.DynamicString(either.value.getErrorMessage())
                             )
                         )
                     }
@@ -176,6 +177,5 @@ class RegistrationViewModel @Inject constructor(
 
             }
             .launchIn(viewModelScope)
-    }
 
 }

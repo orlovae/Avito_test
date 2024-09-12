@@ -24,10 +24,11 @@ private fun setId(id: String?): String =
         id
     }
 
-private fun getUrlImageFromList(list: List<String?>): String =
-    list
-        .filterNotNull()
-        .last()
+private fun getUrlImageFromList(list: List<String?>): String {
+    val outList = list.filterNotNull()
+
+    return if (outList.isNotEmpty()) outList.first() else ""
+}
 
 private fun getCategoryListNotNull(list: List<String?>): List<String> =
     list.filterNotNull()
