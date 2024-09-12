@@ -1,6 +1,5 @@
 package ru.alexandrorlov.avito_test.feature.product.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -55,7 +54,7 @@ class ProductListViewModel @Inject constructor(
                     .map { product: Product ->
                         product.toProductUI()
                     }
-                                Log.d("OAE", "start ProductListViewModel productList = $productList")
+
                 _state.emit(ScreenState.Content(content = productList))
             }.getOrElse {
                 _sideEffect.emit(
