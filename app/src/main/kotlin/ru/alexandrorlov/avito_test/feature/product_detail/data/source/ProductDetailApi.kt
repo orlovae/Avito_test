@@ -7,7 +7,7 @@ import ru.alexandrorlov.avito_test.feature.product_detail.data.models.RemoteData
 interface ProductDetailApi {
 
     @GET("app/v1/products/{$ID}")
-    suspend fun getRemoteData(@Path(ID) idProduct: String): RemoteData
+    suspend fun getRemoteData(@Path("id") idProduct: String): RemoteData
 
     companion object{
         private const val ID = "id"
