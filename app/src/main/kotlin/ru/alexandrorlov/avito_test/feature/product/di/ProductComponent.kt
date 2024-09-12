@@ -1,7 +1,7 @@
 package ru.alexandrorlov.avito_test.feature.product.di
 
 import dagger.Component
-import ru.alexandrorlov.avito_test.feature.authentication.di.MultiViewModelFactory
+import ru.alexandrorlov.avito_test.common.di.MultiViewModelFactory
 import ru.alexandrorlov.avito_test.feature.product.di.annotation.ProductScope
 import ru.alexandrorlov.avito_test.feature.product.di.dependecies.ProductListDependencies
 

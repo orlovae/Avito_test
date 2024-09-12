@@ -1,7 +1,7 @@
 package ru.alexandrorlov.avito_test.feature.registration.di
 
 import dagger.Component
-import ru.alexandrorlov.avito_test.feature.authentication.di.MultiViewModelFactory
+import ru.alexandrorlov.avito_test.common.di.MultiViewModelFactory
 import ru.alexandrorlov.avito_test.feature.registration.di.annotation.RegistrationScope
 import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.RegistrationDependencies
 
