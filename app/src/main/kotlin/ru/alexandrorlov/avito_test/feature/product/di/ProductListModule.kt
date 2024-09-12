@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import ru.alexandrorlov.avito_test.feature.authentication.di.annotation.ViewModelKey
+import ru.alexandrorlov.avito_test.feature.product.di.annotation.ViewModelKey
 import ru.alexandrorlov.avito_test.feature.product.di.bindmodule.ProductListRepositoryBindModule
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.CategoryRepository
 import ru.alexandrorlov.avito_test.feature.product.domain.repository.FilterRepository
