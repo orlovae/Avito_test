@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProductSpecificationRemote(
+data class SpecificationRemote(
     @SerialName("key")
     val key: String? = null,
     @SerialName("value")

@@ -21,12 +21,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import ru.alexandrorlov.avito_test.R
+import ru.alexandrorlov.avito_test.common.ui.PriceBlock
 import ru.alexandrorlov.avito_test.common.ui.SpacerMediumPadding
 import ru.alexandrorlov.avito_test.feature.product.ui.models.ProductUI
 import ru.alexandrorlov.avito_test.ui.theme.BackgroundApp
 import ru.alexandrorlov.avito_test.ui.theme.ProductText
 import ru.alexandrorlov.avito_test.ui.theme.TypographyAvitoTest
 import ru.alexandrorlov.avito_test.utils.StringValue
+import ru.alexandrorlov.avito_test.utils.groupingUsedToString
 
 @Composable
 internal fun CardProduct(
@@ -34,9 +36,6 @@ internal fun CardProduct(
     onClickProduct: (String) -> Unit,
 ) {
     val context: Context = LocalContext.current
-    
-    val price: String = product.price.asString(context = context)
-    val discountedPrice: String = product.discountedPrice.asString(context = context)
 
     Card(
         modifier = Modifier,
@@ -77,19 +76,10 @@ internal fun CardProduct(
 
             SpacerMediumPadding()
 
-            if (discountedPrice.isNotBlank()) {
-                Text(
-                    text = product.discountedPrice.asString(context = context),
-                    style = MaterialTheme.TypographyAvitoTest.textDiscountedPriceProduct,
-                )
-
-                if (price.isNotBlank()) {
-                    Text(
-                        text = product.price.asString(context = context),
-                        style = MaterialTheme.TypographyAvitoTest.textPriceProduct,
-                    )
-                }
-            }
+            PriceBlock(
+                discountedPrice = product.discountedPrice.asString(context = context),
+                price = product.price.asString(context = context),
+            )
 
             SpacerMediumPadding()
         }
@@ -104,8 +94,8 @@ private fun CardProductPreview() {
             id = "1ase",
             urlPhoto = "",
             title = StringValue.DynamicString("Женские сапоги"),
-            price = StringValue.DynamicString("9999 \u20BD"),
-            discountedPrice = StringValue.DynamicString("1000 \u20BD"),
+            price = StringValue.DynamicString("${9999.groupingUsedToString()} \u20BD"),
+            discountedPrice = StringValue.DynamicString("${1000.groupingUsedToString()} \u20BD"),
             categoryList = emptyList(),
         ),
         onClickProduct = { },

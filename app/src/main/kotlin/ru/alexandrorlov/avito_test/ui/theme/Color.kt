@@ -12,6 +12,7 @@ val RedBorder = Color(0xFFFF4242)
 val RedText = Color(0xFFFF4242)
 val PlaceholderTextField = Color(0xFF9d9d9d)
 val CategoryText = Color(0xFFe3e3e3)
+val ValueSpecificationText = Color(0xFF9d9d9d)
 val CategoryTextInvert = Color(0xFF1c1c1c)
 val ProductText = Color(0xFFe3e3e3)
 

@@ -1,15 +1,17 @@
 package ru.alexandrorlov.avito_test.feature.product_detail.domain.models
 
+import ru.alexandrorlov.avito_test.utils.StringValue
+
 
 data class ProductDetail(
     val brand: String,
     val description: String,
-    val discountedPrice: String,
+    val discountedPrice: StringValue,
     val id: String,
     val urlPhotoList: List<String>,
     val name: String,
-    val price: String,
-    val productSpecifications: List<ProductSpecification>,
+    val price: StringValue,
+    val specifications: List<Specification>,
 ) {
 
     companion object {
@@ -17,12 +19,12 @@ data class ProductDetail(
             ProductDetail(
                 brand = "",
                 description = "",
-                discountedPrice = "",
+                discountedPrice = StringValue.DynamicString(""),
                 id = "",
                 urlPhotoList = emptyList(),
                 name = "",
-                price = "",
-                productSpecifications = emptyList()
+                price = StringValue.DynamicString(""),
+                specifications = emptyList()
             )
     }
 }

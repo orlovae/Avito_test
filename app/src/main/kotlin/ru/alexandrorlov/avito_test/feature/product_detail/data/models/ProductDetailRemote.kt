@@ -23,9 +23,9 @@ data class ProductDetailRemote(
     @SerialName("price")
     val price: Int? = null,
     @SerialName("product_rating")
-    val productRating: Double? = null,
+    val rating: Double? = null,
     @SerialName("product_specifications")
-    val productSpecifications: List<ProductSpecificationRemote?> = emptyList(),
+    val specifications: List<SpecificationRemote?> = emptyList(),
     @SerialName("__v")
     val v: Int? = null,
 )

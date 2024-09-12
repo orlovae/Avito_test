@@ -12,6 +12,7 @@
 
     <string name="button_registration_title">Войти</string>
     <string name="button_auth_title">Вход</string>
+    <string name="button_product_detail_title">Купить</string>
 
     <string name="name_error_footer_text">Данное поле не должно быть пустым</string>
     <string name="email_error_footer_text">Введённое значение не является e-mail</string>
@@ -39,4 +40,7 @@
     <string name="product_no_name">Описание отсутствует</string>
     <string name="ruble_sing">\u20BD</string>
 
+    <string name="specification_product_detail">Характеристики</string>
+    <string name="brand_product_detail">Бренд</string>
+    <string name="colon_sing">:</string>
 </resources>

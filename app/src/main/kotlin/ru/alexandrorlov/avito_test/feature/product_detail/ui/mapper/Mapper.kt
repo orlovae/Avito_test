@@ -1,9 +1,9 @@
 package ru.alexandrorlov.avito_test.feature.product_detail.ui.mapper
 
 import ru.alexandrorlov.avito_test.feature.product_detail.domain.models.ProductDetail
-import ru.alexandrorlov.avito_test.feature.product_detail.domain.models.ProductSpecification
+import ru.alexandrorlov.avito_test.feature.product_detail.domain.models.Specification
 import ru.alexandrorlov.avito_test.feature.product_detail.ui.models.ProductDetailUI
-import ru.alexandrorlov.avito_test.feature.product_detail.ui.models.ProductSpecificationUI
+import ru.alexandrorlov.avito_test.feature.product_detail.ui.models.SpecificationUI
 
 internal fun ProductDetail.toProductDetailUI(): ProductDetailUI =
     ProductDetailUI(
@@ -14,14 +14,14 @@ internal fun ProductDetail.toProductDetailUI(): ProductDetailUI =
         urlPhotoList = urlPhotoList,
         name = name,
         price = price,
-        productSpecifications = productSpecifications.map {
-                productSpecification: ProductSpecification ->
-            productSpecification.toProductSpecificationUI()
+        specifications = specifications.map {
+                specification: Specification ->
+            specification.toProductSpecificationUI()
         },
     )
 
-internal fun ProductSpecification.toProductSpecificationUI(): ProductSpecificationUI =
-    ProductSpecificationUI(
+private fun Specification.toProductSpecificationUI(): SpecificationUI =
+    SpecificationUI(
         key = key,
         value = value,
     )
