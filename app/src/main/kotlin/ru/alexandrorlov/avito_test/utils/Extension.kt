@@ -9,22 +9,6 @@ fun getStringValueFromString(value: String?, @StringRes stringId: Int): StringVa
         StringValue.DynamicString(value)
     }
 
-fun getStringValueFromString(value: Int?, @StringRes stringId: Int): StringValue =
-    if (value != null) {
-        StringValue.DynamicString(value.toString())
-    } else {
-        StringValue.StringResource(stringId)
-    }
-
-fun String.isAllCharsDigits() =
-    if (this.isNotEmpty()) {
-        this.all { char ->
-            char.isDigit()
-        }
-    } else {
-        false
-    }
-
 fun String.getErrorMessage(): String {
     val outFirst: StringBuilder = StringBuilder("Error ")
 

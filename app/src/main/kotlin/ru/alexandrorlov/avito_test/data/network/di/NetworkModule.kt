@@ -12,10 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 import ru.alexandrorlov.avito_test.data.network.interceptor.AuthHeaderInterceptor
-import ru.alexandrorlov.avito_test.data.network.utils.NetworkConstants.BASE_URL
 import ru.alexandrorlov.avito_test.di.AppScope
 import ru.alexandrorlov.avito_test.feature.authentication.data.source.AuthApi
 import ru.alexandrorlov.avito_test.feature.product.data.source.ProductListApi
+import ru.alexandrorlov.avito_test.feature.product_detail.data.source.ProductDetailApi
 import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 
 @Module
@@ -29,9 +29,9 @@ class NetworkModule {
 
     @[Provides AppScope]
     fun provideProductListApi(retrofit: Retrofit): ProductListApi = retrofit.create()
-//
-//    @[Provides AppScope]
-//    fun provideProductDetailApi(retrofit: Retrofit): DetailProductApi = retrofit.create()
+
+    @[Provides AppScope]
+    fun provideProductDetailApi(retrofit: Retrofit): ProductDetailApi = retrofit.create()
 
     @[Provides AppScope]
     fun provideRetrofit(
@@ -72,4 +72,8 @@ class NetworkModule {
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
+    companion object {
+        private const val BASE_URL = "https://fakeshopapi-l2ng.onrender.com/"
+    }
 }

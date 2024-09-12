@@ -9,7 +9,7 @@ import java.util.UUID
 fun ProductRemote.toProduct(): Product =
     Product(
         id = setId(id = id),
-        urlPhoto = getUrlImage(list = images),
+        urlPhoto = getUrlImageFromList(list = images),
         title = getStringValueFromString(name, R.string.product_no_name),
         price = price?.toString() ?: "",
         discountedPrice = discountedPrice?.toString() ?: "",
@@ -19,7 +19,7 @@ fun ProductRemote.toProduct(): Product =
 private fun setId(id: String?): String =
     UUID.randomUUID().toString()
 
-private fun getUrlImage(list: List<String?>): String =
+private fun getUrlImageFromList(list: List<String?>): String =
     list
         .filterNotNull()
         .last()

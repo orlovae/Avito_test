@@ -81,9 +81,14 @@ fun NavGraph(
             val arguments: Bundle = requireNotNull(navBackStackEntry.arguments)
             val idProduct = arguments.getString(Screen.ID_ARG_NAME, "")
 
-            ProductDetailScreen(
-                idProduct = idProduct,
-            )
+            Inject(
+                viewModelFactory = App.productDetailComponent.getViewModelFactory()
+            ) {
+                ProductDetailScreen(
+                    idProduct = idProduct,
+                    navController = navController,
+                )
+            }
         }
     }
 }

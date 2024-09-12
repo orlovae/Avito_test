@@ -13,6 +13,8 @@ import ru.alexandrorlov.avito_test.feature.authentication.data.source.AuthApi
 import ru.alexandrorlov.avito_test.feature.authentication.di.dependecies.AuthDependencies
 import ru.alexandrorlov.avito_test.feature.product.data.source.ProductListApi
 import ru.alexandrorlov.avito_test.feature.product.di.dependecies.ProductListDependencies
+import ru.alexandrorlov.avito_test.feature.product_detail.data.source.ProductDetailApi
+import ru.alexandrorlov.avito_test.feature.product_detail.di.dependecies.ProductDetailDependencies
 import ru.alexandrorlov.avito_test.feature.registration.data.source.RegistrationApi
 import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.RegistrationDependencies
 
@@ -25,7 +27,8 @@ import ru.alexandrorlov.avito_test.feature.registration.di.dependecies.Registrat
     ]
 )
 @AppScope
-interface AppComponent : RegistrationDependencies, AuthDependencies, ProductListDependencies {
+interface AppComponent : RegistrationDependencies, AuthDependencies,
+    ProductListDependencies, ProductDetailDependencies {
 
     override fun emailValidator(): EmailValidator
 
@@ -36,6 +39,8 @@ interface AppComponent : RegistrationDependencies, AuthDependencies, ProductList
     override fun authApi(): AuthApi
 
     override fun productListApi(): ProductListApi
+
+    override fun productDetailApi(): ProductDetailApi
 
     override fun tokenDao(): TokenDao
 
